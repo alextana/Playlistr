@@ -16,6 +16,8 @@
 	let playlist = null;
 	let recommendations = null;
 	let relatedArtists = null;
+	let currentTracks = null;
+	let toBeHighlighted = null;
 
 	async function getRecommendations() {
 		// check playlist and check artists, then look for recommendations based on that
@@ -118,8 +120,11 @@
 			playlist.tracks.items.push(trackToPush);
 
 			recommendations.tracks = recommendations.tracks.filter((f) => f.name !== track.name);
-
 			playlist = playlist;
+
+			setTimeout(() => {
+				currentTracks.scrollTop = currentTracks.scrollHeight;
+			}, 500);
 		} catch (error) {
 			$notification = {
 				type: 'error',
@@ -164,6 +169,10 @@
 			};
 		}
 	}
+
+	function highlightTrack(track) {
+		toBeHighlighted = track;
+	}
 </script>
 
 {#if playlist}
@@ -178,6 +187,8 @@
 					on:removeFromPlaylist={(e) => removeFromPlaylist(e.detail.track)}
 					isPlaylist
 					elements={playlist.tracks.items}
+					bind:node={currentTracks}
+					{toBeHighlighted}
 				/>
 			</div>
 			<div class="potential-new-tracks flex-grow w-full">
@@ -190,6 +201,7 @@
 					</div>
 					<ElementList
 						on:addToPlaylist={(e) => addToPlaylist(e.detail.track)}
+						on:addToPlaylist={(e) => highlightTrack(e.detail.track)}
 						elements={recommendations.tracks}
 					/>
 				{/if}

@@ -1,8 +1,9 @@
 <script>
+	export let extraClass = '';
 </script>
 
 <div
-	class="login-with-spotify transition-all cursor-pointer bg-green-600 hover:bg-green-800 font-extrabold tracking-tighter w-max px-8 py-2 rounded-full flex gap-3"
+	class="{extraClass} login-with-spotify transition-all cursor-pointer bg-green-600 hover:bg-green-800 font-extrabold tracking-tighter w-max px-8 py-2 rounded-full flex gap-3"
 	on:click
 >
 	<div class="spotify-icon">

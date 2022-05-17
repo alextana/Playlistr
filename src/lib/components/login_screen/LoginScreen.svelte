@@ -14,7 +14,7 @@
 	});
 </script>
 
-<div class="login-screen text-center mx-auto w-full bg-zinc-900 mt-24 p-8 rounded-2xl">
+<div class="login-screen relative text-center mx-auto w-max mt-24 p-8 rounded-2xl">
 	{#if expiredToken}
 		<div class="text-6xl font-extrabold tracking-tighter mb-4">oh no!</div>
 		Your session has expired, please login again
@@ -22,6 +22,21 @@
 			<LoginWithSpotify on:click={() => goto('/api/auth/login')} />
 		</div>
 	{:else}
-		let's log you in
+		<div class="logged-out-screen text-center items-center">
+			<div class="login-info mx-auto jusitfy-center">
+				<h1 class="text-6xl font-extrabold tracking-tighter">Welcome</h1>
+				<h3 class="mb-4">Create and manage your Spotify playlists.</h3>
+				<div class="login-button mx-auto w-full text-center">
+					<LoginWithSpotify on:click={() => goto('/api/auth/login')} extraClass="mx-auto" />
+				</div>
+			</div>
+		</div>
 	{/if}
 </div>
+
+<style>
+	.login-screen {
+		background: rgba(0, 0, 0, 0.4);
+		backdrop-filter: blur(10px);
+	}
+</style>

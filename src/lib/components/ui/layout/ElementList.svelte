@@ -4,6 +4,9 @@
 	const dispatch = createEventDispatcher();
 	export let elements = null;
 	export let isPlaylist = false;
+	export let toBeHighlighted = null;
+
+	export let node = null;
 
 	let playlistElements = [];
 
@@ -27,12 +30,14 @@
 </script>
 
 <div class="track-box overflow-hidden">
-	<div class="track-container overflow-y-auto overflow-x-hidden">
+	<div class="track-container overflow-y-auto overflow-x-hidden" bind:this={node}>
 		{#each isPlaylist ? playlistElements : elements as track, i}
 			{#if track}
 				<div
 					in:fly={{ duration: 150, x: 200, delay: i * 20 }}
-					class="track px-4 py-3 hover:bg-teal-800 flex gap-3 items-center"
+					class="{toBeHighlighted === track
+						? 'highlighted'
+						: ''} track px-4 py-3 hover:bg-blue-900 flex gap-3 items-center"
 				>
 					<div class="track-number mr-2 text-gray-300">
 						{i + 1}
@@ -44,7 +49,7 @@
 						{track.name}
 						<span class="block text-sm">
 							{#each track.artists as artist, x}
-								<span class={x !== 0 ? 'text-gray-600' : 'text-gray-400'}>
+								<span class={x !== 0 ? 'text-gray-400' : 'text-gray-300'}>
 									{x !== 0 ? '/ ' : ''}{artist.name}
 								</span>
 							{/each}
@@ -96,5 +101,22 @@
 		max-height: 80vh;
 		background: rgba(0, 0, 0, 0.4);
 		backdrop-filter: blur(10px);
+	}
+
+	.highlighted {
+		animation-name: highlight;
+		animation-duration: 2.5s;
+	}
+
+	@keyframes highlight {
+		0% {
+			background: rgba(0, 0, 0, 0.4);
+		}
+		50% {
+			background: rgba(10, 99, 196, 0.8);
+		}
+		0% {
+			background: rgba(0, 0, 0, 0.4);
+		}
 	}
 </style>

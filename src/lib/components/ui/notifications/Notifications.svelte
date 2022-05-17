@@ -65,7 +65,7 @@
 	function getClass(type) {
 		switch (type) {
 			case 'success':
-				return `bg-green-700 text-white px-4 py-2`;
+				return `bg-blue-700 text-white px-4 py-2`;
 			case 'error':
 				return `bg-red-700 text-white px-4 py-2`;
 			case 'warning':
@@ -87,7 +87,7 @@
 	});
 </script>
 
-{#if notificationStack?.length}
+{#if notificationStack?.length && notificationStack[0].message}
 	<div class="fixed bottom-4 right-4">
 		{#each notificationStack || [] as notification, i (notification?.id)}
 			<div
