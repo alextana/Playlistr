@@ -1,38 +1,17 @@
-# create-svelte
+# Playlistr
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Playlistr is a web application that helps you manage and create your Spotify playlists, it was created with the aim to improve the user experience when adding new songs to your existing playlists or just creating new ones.
 
-## Creating a project
+It is built using SvelteKit and the Spotify Web Api
 
-If you're seeing this, you've probably already done this step. Congrats!
+<img width="1269" alt="image" src="https://user-images.githubusercontent.com/24207888/169085923-1b485f7e-b3d9-4eda-a122-2fa8a7d0de9f.png">
 
-```bash
-# create a new project in the current directory
-npm init svelte
+## Create new playlists
 
-# create a new project in my-app
-npm init svelte my-app
-```
+Select a mood, genres and the amount of songs and you're good to go! 
 
-## Developing
+<img width="1269" alt="image" src="https://user-images.githubusercontent.com/24207888/169086217-406cb930-eedb-42c9-860e-fee03abb5f24.png">
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Easily manage your playlists
 
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+<img width="1269" alt="image" src="https://user-images.githubusercontent.com/24207888/169086085-7f45493e-cfb7-4c8b-b81c-ffbc2ad53dd5.png">
