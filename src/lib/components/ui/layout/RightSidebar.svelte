@@ -19,7 +19,7 @@
 			>
 				Create new playlist
 			</NavigationEntry>
-			<NavigationEntry noBorder>Some other entry</NavigationEntry>
+			<NavigationEntry noBorder>Coming soon</NavigationEntry>
 		</div>
 	</div>
 </div>
