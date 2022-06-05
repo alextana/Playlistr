@@ -110,7 +110,7 @@
 	{/if}
 </div>
 
-{#if isMobile}
+{#if isMobile && isLoggedIn && !expiredToken}
 	<div class="create-playlist w-5/6 fixed bottom-2 right-2">
 		<NavigationEntry
 			cta
