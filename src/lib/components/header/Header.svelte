@@ -33,7 +33,7 @@
 				<div class="logo-name relative">
 					<span class="font-extrabold italic tracking-tighter text-xl my-0">playlistr</span>
 					<span
-						class="absolute text-gray-400 font-light -mt-1 text-xs -top-0 bg-black px-1 py-1 rounded-full"
+						class="absolute text-gray-400 font-light text-xs -top-1 bg-black px-1 py-1 rounded-full"
 						>ALPHA</span
 					>
 				</div>
