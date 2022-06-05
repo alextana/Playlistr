@@ -215,6 +215,10 @@
 	}
 
 	function handleGenres(genre) {
+		if (selectedGenres.length === 3 && !selectedGenres.includes(genre)) {
+			return;
+		}
+
 		if (selectedGenres.includes(genre)) {
 			selectedGenres = selectedGenres.filter((g) => g !== genre);
 		} else {

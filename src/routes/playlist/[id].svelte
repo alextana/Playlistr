@@ -20,13 +20,35 @@
 	let toBeHighlighted = null;
 
 	async function getRecommendations() {
-		// check playlist and check artists, then look for recommendations based on that
 		if (!playlist) return;
+		// check playlist and check artists, then look for recommendations based on that
+
 		let artists = [];
 
-		for (let track of playlist.tracks.items) {
-			for (let artist of track.track.artists) {
-				artists.push(artist.id);
+		if (playlist.tracks.items.length) {
+			for (let track of playlist.tracks.items) {
+				for (let artist of track.track.artists) {
+					artists.push(artist.id);
+				}
+			}
+		} else {
+			try {
+				const offset = Math.floor(Math.random() * 10);
+				const artistSeedData = await fetch(
+					`https://api.spotify.com/v1/me/top/artists?limit=5&offset=${offset}`,
+					{
+						method: 'GET',
+						headers: {
+							Authorization: `Bearer ${session.access_token}`
+						}
+					}
+				);
+				const artistsData = await artistSeedData.json();
+				artists = artistsData?.items.map(function (artist) {
+					return artist['id'];
+				});
+			} catch (error) {
+				console.error(error);
 			}
 		}
 
@@ -193,13 +215,17 @@
 		>
 			<div class="current-tracks w-full">
 				<h3 class="text-2xl text-gray-400 font-light mb-2">Current tracks</h3>
-				<ElementList
-					on:removeFromPlaylist={(e) => removeFromPlaylist(e.detail.track)}
-					isPlaylist
-					elements={playlist.tracks.items}
-					bind:node={currentTracks}
-					{toBeHighlighted}
-				/>
+				{#if playlist.tracks.items.length}
+					<ElementList
+						on:removeFromPlaylist={(e) => removeFromPlaylist(e.detail.track)}
+						isPlaylist
+						elements={playlist.tracks.items}
+						bind:node={currentTracks}
+						{toBeHighlighted}
+					/>
+				{:else}
+					<div class="bg-black/40 p-6">No tracks</div>
+				{/if}
 			</div>
 			<div class="potential-new-tracks flex-grow w-full">
 				{#if recommendations && recommendations.tracks}
