@@ -43,7 +43,7 @@
 						{i + 1}
 					</div>
 					<div class="track-album-image">
-						<img class="w-8 h-8" src={track.album.images[0].url} alt={track.album.name} />
+						<img class="w-8 h-8" src={track.album.images[0]?.url} alt={track.album.name} />
 					</div>
 					<div class="track-name">
 						{track.name}
