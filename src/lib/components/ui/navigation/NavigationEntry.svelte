@@ -9,7 +9,7 @@
 <div
 	on:click
 	class="relative {backgroundClass} {cta
-		? 'bg-green-500 text-gray-800 hover:blue-800 text-xs uppercase font-semibold hover:text-white hover:bg-blue-800 hover:border-blue-900'
+		? 'bg-green-500 text-neutral-800 hover:blue-800 text-xs uppercase font-semibold hover:text-white hover:bg-blue-800 hover:border-blue-900'
 		: 'bg-transparent'}
 		rounded-full cursor-pointer navigation-entry items-center w-full py-2 {noBorder
 		? ''

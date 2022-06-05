@@ -4,7 +4,7 @@
 </script>
 
 <div
-	class="px-4 flex flex-wrap right-sidebar-content rounded-3xl text-left justify-start h-full min-h-screen p-3"
+	class="px-4 flex flex-wrap right-sidebar-content rounded-3xl text-left justify-start min-h-scren h-full p-3"
 >
 	<div class="navigation h-full w-full flex-1">
 		<div class="features">
@@ -19,7 +19,6 @@
 			>
 				Create new playlist
 			</NavigationEntry>
-			<NavigationEntry noBorder>Coming soon</NavigationEntry>
 		</div>
 	</div>
 </div>
