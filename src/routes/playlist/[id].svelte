@@ -180,7 +180,9 @@
 		<div class="playlist-title mb-4">
 			<h1 class="text-4xl font-extrabold tracking-tighter">{playlist.name}</h1>
 		</div>
-		<div class="info-container flex-grow w-full justify-between flex gap-3">
+		<div
+			class="info-container flex-grow w-full justify-between flex flex-wrap md:flex-nowrap gap-3"
+		>
 			<div class="current-tracks w-full">
 				<h3 class="text-2xl text-gray-400 font-light mb-2">Current tracks</h3>
 				<ElementList

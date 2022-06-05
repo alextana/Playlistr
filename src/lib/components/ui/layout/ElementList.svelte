@@ -37,7 +37,7 @@
 					in:fly={{ duration: 150, x: 200, delay: i * 20 }}
 					class="{toBeHighlighted === track
 						? 'highlighted'
-						: ''} track px-4 py-3 hover:bg-blue-900 flex gap-3 items-center"
+						: ''} track px-4 py-3 hover:bg-green-900 flex gap-3 items-center"
 				>
 					<div class="track-number mr-2 text-gray-300">
 						{i + 1}

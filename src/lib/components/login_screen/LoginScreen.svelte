@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import LoginWithSpotify from '../ui/buttons/LoginWithSpotify.svelte';
+	import Greeting from '../greeting/Greeting.svelte';
 	export let expiredToken = false;
 	export let session = null;
 
@@ -24,8 +25,8 @@
 	{:else}
 		<div class="logged-out-screen text-center items-center">
 			<div class="login-info mx-auto jusitfy-center">
-				<h1 class="text-6xl font-extrabold tracking-tighter">Welcome</h1>
-				<h3 class="mb-4">Create and manage your Spotify playlists.</h3>
+				<h1 class="text-6xl"><Greeting margin={false} /></h1>
+				<h3 class="mt-2 mb-4">Create and manage your Spotify playlists.</h3>
 				<div class="login-button mx-auto w-full text-center">
 					<LoginWithSpotify on:click={() => goto('/api/auth/login')} extraClass="mx-auto" />
 				</div>

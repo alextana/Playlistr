@@ -5,17 +5,17 @@
 
 	let playlist = [];
 
-	function handleSearch(e) {
-		const { query } = e.detail;
-	}
+	// function handleSearch(e) {
+	// 	const { query } = e.detail;
+	// }
 </script>
 
 <div class="playlist-creation">
 	<div class="title flex gap-3 justify-between items-center mb-4">
 		<h1 class="text-4xl font-extrabold tracking-tighter">Create a new playlist</h1>
-		<div class="search">
+		<!-- <div class="search">
 			<Search on:search={handleSearch} placeholder="Search for a song" />
-		</div>
+		</div> -->
 	</div>
 	{#if !playlist.length}
 		<PlaylistWizard />

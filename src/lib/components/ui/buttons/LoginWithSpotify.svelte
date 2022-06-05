@@ -19,5 +19,5 @@
 			/></svg
 		>
 	</div>
-	<div class="login-text">Login with spotify</div>
+	<div class="login-text">Login with Spotify</div>
 </div>

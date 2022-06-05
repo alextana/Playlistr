@@ -22,6 +22,7 @@
 	import { notification } from '$lib/stores/notification';
 	import { user } from '$lib/stores/user';
 	import Header from '$lib/components/header/Header.svelte';
+	import Footer from '$lib/components/footer/Footer.svelte';
 	import LoginScreen from '$lib/components/login_screen/LoginScreen.svelte';
 	import Notifications from '$lib/components/ui/notifications/Notifications.svelte';
 	import RightSidebar from '$lib/components/ui/layout/RightSidebar.svelte';
@@ -107,21 +108,15 @@
 	{/if}
 </div>
 
+<Footer />
+
 <Notifications notification={$notification} />
 
 <svelte:window bind:innerWidth />
 
 <style>
 	:global(body) {
-		background: rgb(49, 24, 130);
-		background: radial-gradient(
-			circle,
-			rgba(49, 24, 130, 1) 0%,
-			rgba(18, 65, 97, 1) 37%,
-			rgba(7, 25, 56, 1) 66%,
-			rgba(1, 8, 20, 1) 90%
-		);
-		background-position: -50vh;
+		background-image: linear-gradient(to right, #141e30, #243b55);
 		color: rgb(240, 240, 240);
 	}
 

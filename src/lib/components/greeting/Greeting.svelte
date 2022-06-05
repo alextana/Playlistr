@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	let greeting = null;
+	export let margin = true;
 
 	let today = new Date();
 	let curHr = today.getHours();
@@ -18,7 +19,7 @@
 </script>
 
 {#if greeting}
-	<h1 in:fade={{ duration: 300 }} class="text-4xl font-extrabold mb-8">
+	<h1 in:fade={{ duration: 300 }} class="text-4xl font-extrabold {margin ? 'mb-8' : ''}">
 		<span class="font-light">Good</span>
 		{greeting}
 	</h1>
