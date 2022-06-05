@@ -216,6 +216,10 @@
 
 	function handleGenres(genre) {
 		if (selectedGenres.length === 3 && !selectedGenres.includes(genre)) {
+			$notification = {
+				type: 'error',
+				message: `You can only select a max of 3 genres`
+			};
 			return;
 		}
 
@@ -280,7 +284,7 @@
 						on:click={() => handleGenres(genre)}
 						class="{selectedGenres.filter((f) => f === genre).length
 							? 'selected'
-							: 'border-transparent'} border playlist-purpose-item cursor-pointer hover:bg-green-600 border-white rounded-md p-2 w-max text-center text-sm uppercase font-semibold"
+							: 'border-transparent'} border playlist-purpose-item cursor-pointer bg-black/20 hover:bg-green-600 border-white rounded-md p-2 w-max text-center text-sm uppercase font-semibold"
 					>
 						{genre}
 					</div>
@@ -322,14 +326,12 @@
 		backdrop-filter: blur(10px);
 	}
 	.playlist-purpose-item {
-		transition: 0.3s ease;
+		transition: 0.1s ease;
 		font-size: 0.75rem;
-		background: rgba(0, 0, 0, 0.2);
 		border: 1px solid rgba(255, 255, 255, 0.3);
 	}
 
 	.playlist-purpose-item:hover {
-		background: rgba(0, 0, 0, 0.8);
 		border: 1px solid rgba(255, 255, 255, 0.3);
 	}
 
