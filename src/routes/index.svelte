@@ -22,6 +22,10 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Home | Playlistr</title>
+</svelte:head>
+
 <div class="container mx-auto">
 	{#if session}
 		<Greeting {session} />

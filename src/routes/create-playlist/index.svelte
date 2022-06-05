@@ -10,6 +10,10 @@
 	// }
 </script>
 
+<svelte:head>
+	<title>Create a playlist | Playlistr</title>
+</svelte:head>
+
 <div class="playlist-creation">
 	<div class="title flex gap-3 justify-between items-center mb-4">
 		<h1 class="text-4xl font-extrabold tracking-tighter">Create a new playlist</h1>

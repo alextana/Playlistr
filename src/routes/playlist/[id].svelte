@@ -175,6 +175,14 @@
 	}
 </script>
 
+<svelte:head>
+	{#if playlist}
+		<title>{playlist.name} | Playlistr</title>
+	{:else}
+		<title>Your playlist | Playlistr</title>
+	{/if}
+</svelte:head>
+
 {#if playlist}
 	<div class="playlist-details">
 		<div class="playlist-title mb-4">
