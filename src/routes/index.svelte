@@ -31,7 +31,9 @@
 		<Greeting {session} />
 	{/if}
 
-	<div class="playlist-list grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6">
+	<div
+		class="playlist-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6"
+	>
 		{#each $playlists?.items || [] as playlist, i}
 			{#if playlist}
 				<a
