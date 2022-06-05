@@ -133,7 +133,7 @@
 			console.error(error);
 		}
 
-		if (created && !selectedGenres) {
+		if (created && !selectedGenres.length) {
 			// find artist seed
 			try {
 				const offset = Math.floor(Math.random() * 10);
@@ -176,11 +176,13 @@
 					}
 				}
 			);
+
 			recommendations = await recommendationsData.json();
 		} catch (error) {
 			console.error(error);
 		}
-		const tracks = recommendations.tracks.map((track) => track.uri);
+
+		const tracks = recommendations?.tracks.map((track) => track.uri);
 
 		if (tracks) {
 			try {
