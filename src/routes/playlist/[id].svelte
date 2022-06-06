@@ -139,6 +139,9 @@
 			id = newId;
 			getPlaylist();
 		}
+
+		recommendedTracksLoading = false;
+		currentTracksLoading = false;
 	}
 
 	async function addToPlaylist(track) {
