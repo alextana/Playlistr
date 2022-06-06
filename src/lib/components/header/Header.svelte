@@ -63,8 +63,11 @@
 </div>
 
 <style>
+	.logo-group {
+		color: rgb(34 197 94);
+	}
 	.logo-group:hover {
-		color: #0ff770;
+		color: #fff;
 	}
 	.logo-name {
 		line-height: 0px;
