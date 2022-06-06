@@ -8,24 +8,32 @@
 <script>
 	import { onMount } from 'svelte';
 	import { notification } from '$lib/stores/notification';
+	import { navigating } from '$app/stores';
+	import { fade } from 'svelte/transition';
 
 	import ActionButton from '$lib/components/ui/buttons/ActionButton.svelte';
 	import ElementList from '$lib/components/ui/layout/ElementList.svelte';
+
 	export let id;
 	export let session;
+
 	let playlist = null;
 	let recommendations = null;
 	let relatedArtists = null;
 	let currentTracks = null;
 	let toBeHighlighted = null;
 
+	let currentTracksLoading = true;
+	let recommendedTracksLoading = true;
+
 	async function getRecommendations() {
 		if (!playlist) return;
 		// check playlist and check artists, then look for recommendations based on that
+		recommendedTracksLoading = true;
 
 		let artists = [];
 
-		if (playlist.tracks.items.length) {
+		if (playlist?.tracks?.items?.length) {
 			for (let track of playlist.tracks.items) {
 				for (let artist of track.track.artists) {
 					artists.push(artist.id);
@@ -49,6 +57,7 @@
 				});
 			} catch (error) {
 				console.error(error);
+				recommendedTracksLoading = false;
 			}
 		}
 
@@ -68,6 +77,7 @@
 				relatedArtists = await data.json();
 			} catch (error) {
 				console.error(error);
+				recommendedTracksLoading = false;
 			}
 
 			if (relatedArtists) {
@@ -92,10 +102,13 @@
 			recommendations = await response.json();
 		} catch (error) {
 			console.error(error);
+			recommendedTracksLoading = false;
 		}
+		recommendedTracksLoading = false;
 	}
 
 	async function getPlaylist() {
+		currentTracksLoading = true;
 		try {
 			const response = await fetch(`https://api.spotify.com/v1/playlists/${id}`, {
 				headers: {
@@ -104,15 +117,29 @@
 			});
 			playlist = await response.json();
 		} catch (error) {
+			currentTracksLoading = false;
 			console.error(error);
 		}
 
+		currentTracksLoading = false;
 		getRecommendations();
 	}
 
 	onMount(() => {
 		getPlaylist();
 	});
+
+	$: if ($navigating) {
+		recommendedTracksLoading = true;
+		currentTracksLoading = true;
+		const newId = $navigating.to.pathname.split('/')[2];
+
+		// keep track of the id and only try to fetch new data if it's changed
+		if (newId && newId !== id) {
+			id = newId;
+			getPlaylist();
+		}
+	}
 
 	async function addToPlaylist(track) {
 		// TODO - check if track is already in playlist
@@ -205,43 +232,47 @@
 	{/if}
 </svelte:head>
 
-{#if playlist}
-	<div class="playlist-details">
-		<div class="playlist-title mb-4">
+<div class="playlist-details">
+	{#if playlist?.name}
+		<div in:fade={{ duration: 200 }} class="playlist-title mb-4">
 			<h1 class="text-4xl font-extrabold tracking-tighter">{playlist.name}</h1>
 		</div>
-		<div
-			class="info-container flex-grow w-full justify-between flex flex-wrap md:flex-nowrap gap-3"
-		>
-			<div class="current-tracks w-full">
-				<h3 class="text-2xl text-gray-400 font-light mb-2">Current tracks</h3>
-				{#if playlist.tracks.items.length}
-					<ElementList
-						on:removeFromPlaylist={(e) => removeFromPlaylist(e.detail.track)}
-						isPlaylist
-						elements={playlist.tracks.items}
-						bind:node={currentTracks}
-						{toBeHighlighted}
-					/>
-				{:else}
-					<div class="bg-black/40 p-6">No tracks</div>
-				{/if}
-			</div>
-			<div class="potential-new-tracks flex-grow w-full">
+	{/if}
+	<div class="info-container flex-grow w-full justify-between flex flex-wrap md:flex-nowrap gap-3">
+		<div class="current-tracks w-full">
+			<h3 class="text-xl xl:text-2xl text-gray-400 font-light mb-2">Current tracks</h3>
+			{#if currentTracksLoading || playlist?.tracks?.items.length}
+				<ElementList
+					on:removeFromPlaylist={(e) => removeFromPlaylist(e.detail?.track)}
+					isPlaylist
+					elements={playlist?.tracks?.items}
+					bind:node={currentTracks}
+					{toBeHighlighted}
+					loading={currentTracksLoading}
+				/>
+			{:else if !currentTracksLoading}
+				<div class="bg-black/40 p-6">No tracks</div>
+			{/if}
+		</div>
+		<div class="potential-new-tracks flex-grow w-full">
+			<div class="flex gap-3 justify-between items-center mb-2">
+				<h3 class="text-xl xl:text-2xl text-gray-400 font-light">Recommended tracks</h3>
 				{#if recommendations && recommendations.tracks}
-					<div class="flex gap-3 justify-between items-center mb-2">
-						<h3 class="text-2xl text-gray-400 font-light">Recommended tracks</h3>
-						<div class="refresh-recommendations">
-							<ActionButton on:click={getRecommendations}>Reshuffle</ActionButton>
-						</div>
+					<div class="refresh-recommendations">
+						<ActionButton on:click={getRecommendations}>Reshuffle</ActionButton>
 					</div>
-					<ElementList
-						on:addToPlaylist={(e) => addToPlaylist(e.detail.track)}
-						on:addToPlaylist={(e) => highlightTrack(e.detail.track)}
-						elements={recommendations.tracks}
-					/>
 				{/if}
 			</div>
+			{#if recommendedTracksLoading || (recommendations && recommendations.tracks)}
+				<ElementList
+					on:addToPlaylist={(e) => addToPlaylist(e.detail.track)}
+					on:addToPlaylist={(e) => highlightTrack(e.detail.track)}
+					elements={recommendations?.tracks}
+					loading={recommendedTracksLoading}
+				/>
+			{:else if !recommendedTracksLoading}
+				<div class="bg-black/40 p-6 text-gray-400">No recommendations found for this playlist</div>
+			{/if}
 		</div>
 	</div>
-{/if}
+</div>
