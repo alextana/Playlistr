@@ -35,6 +35,7 @@
 	let expiredToken = false;
 	let isMobile = false;
 	let innerWidth = null;
+	let isExpanded = false;
 
 	$: if (currentUser) {
 		user.set(currentUser);
@@ -103,8 +104,12 @@
 			<div class="main-content mt-8 flex-grow">
 				<slot />
 			</div>
-			<div class="right-sidebar mt-8">
-				<RightSidebar {currentUser} />
+			<div class="right-sidebar mt-8 {isExpanded ? 'expanded' : ''}">
+				<RightSidebar
+					on:expand={() => (isExpanded = true)}
+					on:collapse={() => (isExpanded = false)}
+					{currentUser}
+				/>
 			</div>
 		</div>
 	{/if}
@@ -153,11 +158,17 @@
 	}
 
 	.right-sidebar {
+		transition: 0.3s ease;
 		min-width: 250px;
 		max-width: 250px;
 	}
 
 	.create-playlist {
 		max-width: 250px;
+	}
+
+	.expanded {
+		min-width: 350px !important;
+		max-width: 350px !important;
 	}
 </style>
