@@ -37,14 +37,13 @@
 			icon: `💪`,
 			seeds: {
 				min_energy: 0.6,
-				// min_tempo: 160,
 				min_danceability: 0.6
 			}
 		},
 		{
 			id: 2,
 			name: 'Traveling',
-			icon: `🏝`,
+			icon: `🌍`,
 			seeds: {
 				max_energy: 0.6,
 				max_tempo: 160
@@ -80,7 +79,11 @@
 		{
 			id: 6,
 			name: 'Anything',
-			icon: `🙌`
+			icon: `🙌`,
+			seeds: {
+				min_energy: 0.1,
+				min_popularity: 20
+			}
 		}
 	];
 
@@ -99,7 +102,6 @@
 	async function generatePlaylist() {
 		// generate playlist here
 		if (!selectedPurpose || !selectedAmount || !playlistName || !$user?.id) {
-			// TODO handle errors
 			return;
 		}
 
@@ -116,25 +118,15 @@
 
 		const queryString = seedString + '&limit=' + amount;
 
-		// first create playlist then add items to them
-		let created = null;
 		let seed_artists = null;
 
-		try {
-			const data = await fetch(`https://api.spotify.com/v1/users/${$user.id}/playlists`, {
-				method: 'POST',
-				headers: {
-					Authorization: `Bearer ${session.access_token}`
-				},
-				body: JSON.stringify(name)
-			});
-			created = await data.json();
-		} catch (error) {
-			console.error(error);
-		}
+		/*
+			Playlist Creation tool, get seeds from playlist purpose and genres
+			if no genres are selected then get seeds from user's top artists
+		*/
 
-		if (created && !selectedGenres.length) {
-			// find artist seed
+		// if no genres are selected then get some of the favourite artists
+		if (!selectedGenres.length) {
 			try {
 				const offset = Math.floor(Math.random() * 10);
 				const artistSeedData = await fetch(
@@ -155,9 +147,9 @@
 			}
 		}
 
-		const playlistId = created.id;
 		let recommendations = null;
-		// add tracks to playlist
+
+		// get recommendations based on genre seeds
 		try {
 			if (genres?.length) {
 				selectedGenres.push(genres);
@@ -180,11 +172,37 @@
 			recommendations = await recommendationsData.json();
 		} catch (error) {
 			console.error(error);
+			$notification = {
+				type: 'error',
+				message: `Whoops! We could not find any recommendations`
+			};
 		}
 
 		const tracks = recommendations?.tracks.map((track) => track.uri);
 
+		// if recommendation tracks are found then create playlist
 		if (tracks) {
+			let created = null;
+
+			try {
+				const data = await fetch(`https://api.spotify.com/v1/users/${$user.id}/playlists`, {
+					method: 'POST',
+					headers: {
+						Authorization: `Bearer ${session.access_token}`
+					},
+					body: JSON.stringify(name)
+				});
+				created = await data.json();
+			} catch (error) {
+				$notification = {
+					type: 'error',
+					message: `Error creating playlist`
+				};
+				console.error(error);
+			}
+
+			const playlistId = created.id;
+
 			try {
 				const addToPlaylist = await fetch(
 					`https://api.spotify.com/v1/playlists/${playlistId}/tracks?uris=${tracks.join(',')}`,
@@ -209,6 +227,10 @@
 					goto('/playlist/' + created.id);
 				}
 			} catch (error) {
+				$notification = {
+					type: 'error',
+					message: `There was an error creating the playlist`
+				};
 				console.error(rrror);
 			}
 		}
@@ -230,13 +252,6 @@
 		}
 		selectedGenres = selectedGenres;
 	}
-
-	// function resetSelections () {
-	//   selectedPurpose = null;
-	//   selectedAmount = null;
-	//   playlistName = null;
-	//   selectedGenres = [];
-	// }
 </script>
 
 <div class="playlist-wizard mt-8 text-center rounded-2xl p-8">
@@ -309,7 +324,6 @@
 					</div>
 				{/each}
 			</div>
-			<!-- <InputNumber extraClass="mx-auto" widthClass="w-max" min="1" max="100" value="20" /> -->
 		</div>
 	{/if}
 
