@@ -13,6 +13,7 @@
 	let intervalStarted = false;
 	let removeNotifications = null;
 	let isHoveringOver = false;
+
 	const icon = '';
 	const thumbnail = '';
 
@@ -65,7 +66,7 @@
 	function getClass(type) {
 		switch (type) {
 			case 'success':
-				return `bg-blue-700 text-white px-4 py-2`;
+				return `bg-green-500 text-black px-4 py-2`;
 			case 'error':
 				return `bg-red-700 text-white px-4 py-2`;
 			case 'warning':
