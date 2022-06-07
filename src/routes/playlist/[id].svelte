@@ -10,6 +10,7 @@
 	import { notification } from '$lib/stores/notification';
 	import { navigating } from '$app/stores';
 	import { fade } from 'svelte/transition';
+	import { addToPlaylistsQueue } from '$lib/stores/playlists/addToPlaylistsQueue';
 
 	import ActionButton from '$lib/components/ui/buttons/ActionButton.svelte';
 	import ElementList from '$lib/components/ui/layout/ElementList.svelte';
@@ -25,6 +26,24 @@
 
 	let currentTracksLoading = true;
 	let recommendedTracksLoading = true;
+
+	// this reactive store checks if the user has added any tracks
+	// to the store from any other component
+	$: if ($addToPlaylistsQueue?.length) {
+		// we get the last from the queue
+		const toAdd = $addToPlaylistsQueue.at(-1)?.track;
+		// if toAdd is valid then we add it to the playlist
+		if (toAdd) {
+			try {
+				addToPlaylist(toAdd);
+				highlightTrack(toAdd);
+			} catch (error) {
+				console.error(error);
+			}
+		}
+		// remove from the queue
+		$addToPlaylistsQueue = $addToPlaylistsQueue.filter((f) => f.track !== toAdd);
+	}
 
 	async function getRecommendations() {
 		if (!playlist) return;
