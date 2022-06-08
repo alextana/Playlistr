@@ -1,10 +1,13 @@
 <script>
 	export let entries = [];
 	export let value = null;
-	export let initialOption = null;
 
-	$: if (!value) {
+	$: if (!value && !entries.length) {
 		value = '';
+	}
+
+	$: if (!value && entries?.length) {
+		value = entries[0].id;
 	}
 </script>
 
@@ -13,7 +16,7 @@
 		class="appearance-none border rounded-full bg-gray-50 border-gray-200 pl-3 pr-6 py-2"
 		bind:value
 	>
-		{#if !initialOption}
+		{#if !entries.length}
 			<option value=""> Please select... </option>
 		{/if}
 

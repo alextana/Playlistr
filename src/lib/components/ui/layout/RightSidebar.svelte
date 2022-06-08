@@ -7,9 +7,10 @@
 	import { playlists } from '$lib/stores/playlists';
 	import { navigating } from '$app/stores';
 	import { addToPlaylistsQueue } from '$lib/stores/playlists/addToPlaylistsQueue';
-	import { truncate } from '$lib/utils/truncate';
 	import { notification } from '$lib/stores/notification';
 	import { addedToPlaylist } from '$lib/stores/playlists/addedToPlaylist';
+	import SearchResults from '../search/SearchResults.svelte';
+	import Button from '../buttons/Button.svelte';
 
 	import Modal from '$lib/components/ui/modals/Modal.svelte';
 	import Search from '../search/Search.svelte';
@@ -30,6 +31,11 @@
 	let selectedTrack = null;
 	let selectedPlaylist = null;
 
+	// modal button states
+	let addDone = false;
+	let addLoading = false;
+	let addError = false;
+
 	$: if (searchResults) {
 		dispatch('expand');
 	} else {
@@ -47,16 +53,16 @@
 			const playlistId = $page.url.pathname.split('/playlist/')[1];
 
 			$addToPlaylistsQueue = [...$addToPlaylistsQueue, { playlist: playlistId, track }];
-
+			addDone = true;
 			return;
 		}
 
 		// if not on a playlist page, open a modal to select a playlist
 		handleOpenPlaylistModal(track);
-		$addSongToPlaylist;
 	}
 
 	function handleOpenPlaylistModal(track) {
+		addDone = false;
 		if (!$playlists) {
 			return;
 		}
@@ -130,6 +136,12 @@
 	}
 
 	async function addSongToPlaylist() {
+		if (!selectedTrack || !selectedPlaylist) {
+			addError = true;
+			return;
+		}
+
+		addLoading = true;
 		try {
 			const data = await fetch(
 				`https://api.spotify.com/v1/playlists/${selectedPlaylist}/tracks?uris=${selectedTrack}`,
@@ -146,6 +158,7 @@
 				console.error(response);
 			}
 		} catch (error) {
+			addError = true;
 			console.error(error);
 		}
 
@@ -154,12 +167,17 @@
 			message: 'Song added to playlist!'
 		};
 
+		addDone = true;
+
 		$addedToPlaylist = {
 			playlist: selectedPlaylist,
 			track: selectedTrack
 		};
 
-		handlePlaylistModalClose();
+		setTimeout(() => {
+			handlePlaylistModalClose();
+			addDone = false;
+		}, 800);
 	}
 
 	async function getPlaylists() {
@@ -219,95 +237,17 @@
 					</NavigationEntry>
 				</div>
 			{/if}
-			<hr class="my-4" />
+
+			{#if showPlaylists}
+				<hr class="my-4" />
+			{/if}
 
 			{#if searchResults}
-				<!--
-				TODO make this into a component
-				to reuse for mobile
-			-->
-				<div class="search-results bg-black/30 p-3 rounded-xl relative pt-6">
-					<!-- close button-->
-					<div
-						on:click={handleCloseSearch}
-						class="close-button bg-white rounded-full p-1 hover:bg-green-500 cursor-pointer text-black absolute right-0 -top-2"
-					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							class="h-5 w-5 text-gray-800"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-							stroke-width="2"
-						>
-							<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-						</svg>
-					</div>
-					<!-- display tracks from search -->
-					{#if searchResults?.tracks?.items?.length}
-						{#each searchResults?.tracks?.items as track}
-							<div class="track track px-4 py-3 hover:bg-green-900 flex gap-3 items-center">
-								<div class="track-album-image">
-									<img
-										class="track-image"
-										src={track.album.images[0]?.url}
-										alt={track.album.name}
-									/>
-								</div>
-								<div class="track-name">
-									{truncate(track.name, 30)}
-									<span class="block artist-name">
-										{#each track.artists as artist, x}
-											<span class={x !== 0 ? 'text-gray-400' : 'text-gray-300'}>
-												{x !== 0 ? '/ ' : ''}{truncate(artist.name, 40)}
-											</span>
-										{/each}
-									</span>
-								</div>
-								<div class="actions flex gap-3 justify-end ml-auto items-center">
-									<div on:click={() => addToPlaylist(track)}>
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											class="h-5 w-5 hover:text-green-500 cursor-pointer"
-											fill="none"
-											viewBox="0 0 24 24"
-											stroke="currentColor"
-											stroke-width="2"
-										>
-											<path
-												stroke-linecap="round"
-												stroke-linejoin="round"
-												d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-											/>
-										</svg>
-									</div>
-									<!--<div>add to other playlist</div>-->
-								</div>
-							</div>
-						{/each}
-					{:else}
-						<div
-							class="no-tracks text-white/30 absolute text-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-wrap justify-center w-full"
-						>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								class="h-32 w-32"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke="currentColor"
-								stroke-width="2"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-								/>
-							</svg>
-							<h3 class="text-3xl font-light">Insert text to search..</h3>
-						</div>
-					{/if}
-					<!-- end display tracks -->
-				</div>
+				<SearchResults
+					on:addSongToPlaylist={(e) => addToPlaylist(e.detail.track)}
+					on:closeSearch={handleCloseSearch}
+					{searchResults}
+				/>
 			{:else if showPlaylists}
 				<div class="playlist-entries">
 					{#each $playlists?.items || [] as playlist, i}
@@ -335,9 +275,11 @@
 			on:click={handlePlaylistModalClose}
 			class="uppercase font-bold text-gray-500 hover:text-gray-800">Cancel</button
 		>
-		<button
-			on:click={() => addSongToPlaylist(selectedPlaylist, selectedTrack)}
-			class="bg-green-500 hover:bg-green-600 uppercase font-bold px-3 py-1 rounded-full">Add</button
+		<Button
+			loading={addLoading}
+			error={addError}
+			done={addDone}
+			on:click={() => addSongToPlaylist(selectedPlaylist, selectedTrack)}>Add</Button
 		>
 	</div>
 </Modal>
@@ -348,29 +290,11 @@
 		max-width: 100%;
 	}
 
-	.search-results {
-		min-height: 300px;
-	}
-
 	.playlist-entries {
 		max-height: 70vh;
 		overflow-y: auto;
 	}
 	hr {
 		border-top: 1px solid rgba(255, 255, 255, 0.2);
-	}
-	.track {
-		font-size: 0.8rem;
-	}
-
-	.track-image {
-		min-width: 30px;
-		min-height: 30px;
-		max-width: 30px;
-		max-height: 30px;
-	}
-
-	.artist-name {
-		font-size: 0.7rem;
 	}
 </style>
