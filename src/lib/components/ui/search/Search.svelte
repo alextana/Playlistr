@@ -42,6 +42,8 @@
 		type="text"
 		{placeholder}
 		on:keyup={handleKeys}
+		on:blur={() => (isFocused = false)}
+		on:focus={() => (isFocused = true)}
 	/>
 	<div
 		class="clear absolute cursor-pointer right-2 top-1/2 transform -translate-y-1/2"
@@ -49,7 +51,7 @@
 	>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
-			class="h-5 w-5 {isFocused ? 'text-gray-800' : 'text-white'} {queryString !== ''
+			class="h-5 w-5 {isFocused ? 'text-gray-800' : 'text-white'} {queryString !== '' && !isFocused
 				? 'hover:text-white'
 				: ''}"
 			fill="none"
