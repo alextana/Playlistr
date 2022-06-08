@@ -57,8 +57,11 @@
 	}
 
 	onMount(() => {
-		if (session.authenticated || currentUser) {
+		if (session.authenticated) {
 			isLoggedIn = true;
+		}
+
+		if (currentUser) {
 			return;
 		}
 
