@@ -42,21 +42,21 @@
 
 	const primary = `
     bg-green-500 hover:bg-green-600 uppercase font-bold px-3 py-1 rounded-full
-    w-max pl-4 ${svgIcon ? 'pr-12' : 'pr-4'}  cursor-pointer
+    w-max pl-4 pr-12 cursor-pointer
   `;
 	const secondary = `
   bg-gray-500 hover:bg-gray-600 uppercase font-bold px-3 py-1 rounded-full
-    w-max pl-4 pr-12' : 'pr-4' cursor-pointer
+    w-max pl-4 pr-12 cursor-pointer
   `;
 
 	const warning = `
   bg-red-500 hover:bg-red-600 text-white uppercase font-bold px-3 py-1 rounded-full
-    w-max pl-4 pr-12' : 'pr-4' cursor-pointer
+    w-max pl-4 pr-12 cursor-pointer
   `;
 
 	const success = `
   bg-green-500 hover:bg-green-600 uppercase font-bold px-3 py-1 rounded-full
-    w-max pl-4 pr-12' : 'pr-4' cursor-pointer
+    w-max pl-4 pr-12 cursor-pointer
   `;
 
 	switch (type?.toLowerCase()) {
