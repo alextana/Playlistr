@@ -43,6 +43,7 @@
 	}
 
 	$: if (session?.authenticated || currentUser) {
+		expiredToken = false;
 		isLoggedIn = true;
 	}
 
@@ -103,7 +104,7 @@
 
 <div class="container main-content mx-auto px-8 md:px-4">
 	{#if expiredToken || !isLoggedIn}
-		<LoginScreen {expiredToken} {session} />
+		<LoginScreen {expiredToken} />
 	{:else if isMobile}
 		<!-- mobile view -->
 		<slot />

@@ -1,10 +1,11 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { onMount } from 'svelte';
+	import { onMount, getContext } from 'svelte';
 	import LoginWithSpotify from '../ui/buttons/LoginWithSpotify.svelte';
 	import Greeting from '../greeting/Greeting.svelte';
 	export let expiredToken = false;
-	export let session = null;
+
+	let session = getContext('session');
 
 	onMount(() => {
 		if (expiredToken) {
