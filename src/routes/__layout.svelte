@@ -36,9 +36,14 @@
 	let isMobile = false;
 	let innerWidth = null;
 	let isExpanded = false;
+	let isLoading = false;
 
 	$: if (currentUser) {
 		user.set(currentUser);
+	}
+
+	$: if (session?.authenticated || currentUser) {
+		isLoggedIn = true;
 	}
 
 	$: if (session) {
@@ -52,13 +57,12 @@
 	}
 
 	onMount(() => {
-		if (session.authenticated) {
+		if (session.authenticated || currentUser) {
 			isLoggedIn = true;
-		}
-
-		if (currentUser) {
 			return;
 		}
+
+		isLoading = true;
 
 		getMe();
 
@@ -85,14 +89,16 @@
 				currentUser = await data.json();
 			} catch (error) {
 				console.error(error);
+				isLoading = false;
 			}
+			isLoading = false;
 		}
 	});
 </script>
 
 <Header {expiredToken} {session} {currentUser} />
 
-<div class="container mx-auto px-8 md:px-4">
+<div class="container main-content mx-auto px-8 md:px-4">
 	{#if expiredToken || !isLoggedIn}
 		<LoginScreen {expiredToken} {session} />
 	{:else if isMobile}
@@ -170,5 +176,9 @@
 	.expanded {
 		min-width: 350px !important;
 		max-width: 350px !important;
+	}
+
+	.main-content {
+		min-height: 60vh;
 	}
 </style>

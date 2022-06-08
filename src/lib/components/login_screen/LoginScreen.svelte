@@ -25,7 +25,7 @@
 	{:else}
 		<div class="logged-out-screen text-center items-center">
 			<div class="login-info mx-auto jusitfy-center">
-				<h1 class="text-6xl"><Greeting margin={false} /></h1>
+				<h1 class="text-6xl greeting"><Greeting margin={false} /></h1>
 				<h3 class="mt-2 mb-4">Create and manage your Spotify playlists.</h3>
 				<div class="login-button mx-auto w-full text-center">
 					<LoginWithSpotify on:click={() => goto('/api/auth/login')} extraClass="mx-auto" />
@@ -39,5 +39,9 @@
 	.login-screen {
 		background: rgba(0, 0, 0, 0.4);
 		backdrop-filter: blur(10px);
+	}
+
+	.greeting {
+		min-height: 40px;
 	}
 </style>
