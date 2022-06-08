@@ -71,7 +71,7 @@
 					}
 				);
 				const artistsData = await artistSeedData.json();
-				artists = artistsData?.items.map(function (artist) {
+				artists = artistsData?.items?.map(function (artist) {
 					return artist['id'];
 				});
 			} catch (error) {
@@ -86,7 +86,7 @@
 		if (!artists.length || artists.length < 3) {
 			try {
 				const data = await fetch(
-					`https://api.spotify.com/v1/artists/${playlist.tracks.items[0].track.artists[0].id}/related-artists`,
+					`https://api.spotify.com/v1/artists/${playlist?.tracks?.items[0]?.track?.artists[0]?.id}/related-artists`,
 					{
 						headers: {
 							Authorization: `Bearer ${session.access_token}`

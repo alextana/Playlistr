@@ -8,6 +8,13 @@ export async function get({ url }) {
   formData.append('grant_type', 'refresh_token')
   formData.append('refresh_token', refresh_token)
 
+  if (!refresh_token || refresh_token === 'undefined') {
+    return {
+      status: 404,
+      message: 'No refresh token provided.'
+    }
+  }
+
   const res = await fetch('https://accounts.spotify.com/api/token', {
     method: 'POST',
     headers: {
