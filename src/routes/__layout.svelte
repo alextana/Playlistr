@@ -29,6 +29,7 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import NavigationEntry from '$lib/components/ui/navigation/NavigationEntry.svelte';
+
 	export let session;
 	let isLoggedIn = false;
 	let currentUser = null;
@@ -42,7 +43,7 @@
 		user.set(currentUser);
 	}
 
-	$: if (session?.authenticated || currentUser) {
+	$: if (session?.authenticated && currentUser) {
 		expiredToken = false;
 		isLoggedIn = true;
 	}
