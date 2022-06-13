@@ -16,6 +16,10 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Playlistr | Welcome</title>
+</svelte:head>
+
 <div class="login-screen relative text-center mx-auto w-max mt-24 p-8 rounded-2xl">
 	{#if expiredToken}
 		<div class="text-6xl font-extrabold tracking-tighter mb-4">oh no!</div>
@@ -27,7 +31,8 @@
 		<div class="logged-out-screen text-center items-center">
 			<div class="login-info mx-auto jusitfy-center">
 				<h1 class="text-6xl greeting"><Greeting margin={false} /></h1>
-				<h3 class="mt-2 mb-4">Create and manage your Spotify playlists.</h3>
+				<h3 class="my-2">Create and manage your Spotify playlists.</h3>
+				<h4 class="mt-2 mb-4 font-light italic">Requires a Spotify Premium account</h4>
 				<div class="login-button mx-auto w-full text-center">
 					<LoginWithSpotify on:click={() => goto('/api/auth/login')} extraClass="mx-auto" />
 				</div>
