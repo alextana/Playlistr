@@ -28,6 +28,7 @@
 	import RightSidebar from '$lib/components/ui/layout/RightSidebar.svelte';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
+	import MobileBar from '$lib/components/mobile/MobileBar.svelte';
 	import NavigationEntry from '$lib/components/ui/navigation/NavigationEntry.svelte';
 
 	export let session;
@@ -107,7 +108,6 @@
 	{#if expiredToken || !isLoggedIn}
 		<LoginScreen {expiredToken} />
 	{:else if isMobile}
-		<!-- mobile view -->
 		<slot />
 	{:else}
 		<!-- desktop view -->
@@ -127,6 +127,12 @@
 </div>
 
 {#if isMobile && isLoggedIn && !expiredToken}
+	<div class="mobile-bottom-bar fixed bottom-0 z-50">
+		<MobileBar />
+	</div>
+{/if}
+
+<!-- {#if isMobile && isLoggedIn && !expiredToken}
 	<div class="create-playlist w-5/6 fixed bottom-2 right-2">
 		<NavigationEntry
 			cta
@@ -140,7 +146,7 @@
 			Create new playlist
 		</NavigationEntry>
 	</div>
-{/if}
+{/if} -->
 
 <Footer {isMobile} />
 
