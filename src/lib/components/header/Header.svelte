@@ -14,7 +14,7 @@
 	});
 </script>
 
-<div class="container mx-auto px-8 md:px-4">
+<div class="container mx-auto px-8 md:px-4 z-50">
 	<div class="header-container flex justify-between items-center py-2">
 		<a href="/" class="logo text-3xl tracking-tight font-extrabold">
 			<div class="flex gap-1 items-center logo-group">

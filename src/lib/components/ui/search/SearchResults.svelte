@@ -6,6 +6,9 @@
 	const dispatch = createEventDispatcher();
 
 	export let searchResults = null;
+	export let hasClose = true;
+	export let hasScroll = false;
+	export let isMobile = false;
 
 	function handleDispatchTrack(track) {
 		dispatch('addSongToPlaylist', {
@@ -14,36 +17,44 @@
 	}
 </script>
 
-<div class="search-results bg-black/30 p-3 mt-6 rounded-xl relative pt-6">
+<div
+	class="search-results {hasScroll
+		? 'overflow-y-auto mobile-search'
+		: ''} bg-black/30 p-3 mt-6 rounded-xl relative pt-6"
+>
 	<!-- close button-->
-	<div
-		on:click={() => dispatch('closeSearch')}
-		class="close-button bg-white rounded-full p-1 hover:bg-green-500 cursor-pointer text-black absolute right-0 -top-2"
-	>
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			class="h-5 w-5 text-gray-800"
-			fill="none"
-			viewBox="0 0 24 24"
-			stroke="currentColor"
-			stroke-width="2"
+	{#if hasClose}
+		<div
+			on:click={() => dispatch('closeSearch')}
+			class="close-button bg-white rounded-full p-1 hover:bg-green-500 cursor-pointer text-black absolute right-0 -top-2"
 		>
-			<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-		</svg>
-	</div>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-5 w-5 text-gray-800"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+				stroke-width="2"
+			>
+				<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+			</svg>
+		</div>
+	{/if}
 	<!-- display tracks from search -->
 	{#if searchResults?.tracks?.items?.length}
 		{#each searchResults?.tracks?.items as track, i}
 			<div
 				in:fly={{ duration: 100, delay: i * 50, x: 30 }}
-				class="track track px-4 py-3 hover:bg-green-900 flex gap-3 items-center"
+				class="track {isMobile
+					? 'mobile-text'
+					: ''} track px-4 py-3 hover:bg-green-900 flex gap-3 items-center"
 			>
 				<div class="track-album-image">
 					<img class="track-image" src={track.album.images[0]?.url} alt={track.album.name} />
 				</div>
 				<div class="track-name">
 					{truncate(track.name, 30)}
-					<span class="block artist-name">
+					<span class="block artist-name {isMobile ? 'mobile-text' : ''}">
 						{#each track.artists as artist, x}
 							<span class={x !== 0 ? 'text-gray-400' : 'text-gray-300'}>
 								{x !== 0 ? '/ ' : ''}{truncate(artist.name, 40)}
@@ -112,7 +123,19 @@
 		max-height: 30px;
 	}
 
+	.track.mobile-text {
+		font-size: 1.2rem !important;
+	}
+
+	.artist-name.mobile-text {
+		font-size: 0.95rem !important;
+	}
+
 	.artist-name {
 		font-size: 0.7rem;
+	}
+
+	.mobile-search {
+		max-height: 80vh;
 	}
 </style>

@@ -111,6 +111,11 @@
 		isSearching = !isSearching;
 	}
 
+	function handleClear() {
+		handleSearchState();
+		searchResults = null;
+	}
+
 	async function handleSearch(query) {
 		const data = await fetch(`https://api.spotify.com/v1/search?type=track&q=${query}`, {
 			method: 'GET',
@@ -119,11 +124,6 @@
 			}
 		});
 		searchResults = await data.json();
-	}
-
-	function handleClear() {
-		handleSearchState();
-		searchResults = null;
 	}
 
 	function handleCloseSearch() {

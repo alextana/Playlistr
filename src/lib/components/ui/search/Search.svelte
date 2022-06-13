@@ -4,6 +4,8 @@
 	const dispatch = createEventDispatcher();
 	export let placeholder = '';
 	export let isFocused = false;
+	export let isMobile = false;
+	export let clearQuery = false;
 
 	let inputElement = null;
 
@@ -28,6 +30,15 @@
 		debounce(dispatchSearch, 800);
 	}
 
+	function handleClear() {
+		if (clearQuery) {
+			inputElement.value = '';
+			queryString = '';
+		}
+
+		dispatch('clear');
+	}
+
 	onMount(() => {
 		if (isFocused) {
 			inputElement.focus();
@@ -38,7 +49,9 @@
 <div class="search relative">
 	<input
 		bind:this={inputElement}
-		class="rounded-full pl-4 pr-9 w-full py-2 focus:bg-white focus:text-black bg-zinc-800 focus:outline-none focus:ring-0"
+		class="rounded-full pl-4 pr-9 w-full {isMobile
+			? 'py-4 text-lg'
+			: 'py-2'} focus:bg-white focus:text-black bg-zinc-800 focus:outline-none focus:ring-0"
 		type="text"
 		{placeholder}
 		on:keyup={handleKeys}
@@ -47,13 +60,13 @@
 	/>
 	<div
 		class="clear absolute cursor-pointer right-2 top-1/2 transform -translate-y-1/2"
-		on:click={() => dispatch('clear')}
+		on:click={handleClear}
 	>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
-			class="h-5 w-5 {isFocused ? 'text-gray-800' : 'text-white'} {queryString !== '' && !isFocused
-				? 'hover:text-white'
-				: ''}"
+			class="{isMobile ? 'h-8 w-8' : 'h-5 w-5'} {isFocused
+				? 'text-gray-800'
+				: 'text-white'} {queryString !== '' && !isFocused ? 'hover:text-white' : ''}"
 			fill="none"
 			viewBox="0 0 24 24"
 			stroke="currentColor"
