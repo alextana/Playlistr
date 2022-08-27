@@ -35,6 +35,7 @@
 	let addDone = false;
 	let addLoading = false;
 	let addError = false;
+	let pathToCheck = null;
 
 	$: if (searchResults) {
 		dispatch('expand');
@@ -82,9 +83,7 @@
 		isAddPlaylistModalOpen = true;
 	}
 
-	function checkPathAndFetch(navigationType) {
-		let pathToCheck = null;
-
+	function checkPath(navigationType) {
 		switch (navigationType) {
 			case 'navigation':
 				pathToCheck = $navigating.to.pathname;
@@ -93,6 +92,10 @@
 				pathToCheck = $page.url.pathname;
 				break;
 		}
+	}
+
+	function checkPathAndFetch(navigationType) {
+		checkPath(navigationType);
 
 		if (pathToCheck.indexOf('playlist') > -1) {
 			showPlaylists = true;
@@ -180,6 +183,17 @@
 		}, 800);
 	}
 
+	function handleImprovement() {
+		// check if on a playlist page or not
+		const path = checkPath('mount');
+
+		if (path.indexOf('/playlist') > -1) {
+			return;
+		}
+
+		// if not on a playlist page, open a modal to select a playlist
+	}
+
 	async function getPlaylists() {
 		const data = await fetch('https://api.spotify.com/v1/me/playlists?limit=20', {
 			headers: {
@@ -210,6 +224,19 @@
         `}
 			>
 				Create new playlist
+			</NavigationEntry>
+
+			<NavigationEntry
+				sidebar
+				noBorder
+				on:click={handleImprovement}
+				svg={`
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+					</svg>
+				`}
+			>
+				Improve your playlist
 			</NavigationEntry>
 
 			{#if isSearching}
