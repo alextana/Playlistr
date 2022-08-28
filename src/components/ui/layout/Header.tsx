@@ -40,8 +40,8 @@ export default function Header() {
               height={20}
               priority={true}
               className='w-8 h-8 rounded-full'
-              src={session.user.image || ''}
-              alt={session.user.name || ''}
+              src={session.user?.image || ''}
+              alt={session.user?.name || ''}
             />
             <span className='hidden lg:block'>
               Hello, {session?.user?.name}
