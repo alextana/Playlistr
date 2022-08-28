@@ -7,11 +7,21 @@ export default function Home() {
   const { data: session } = useSession()
 
   if (session) {
-    return <Playlists />
+    return (
+      <>
+        <Head>
+          <title>Playlistr | Welcome</title>
+        </Head>
+        <Playlists />
+      </>
+    )
   }
 
   return (
     <>
+      <Head>
+        <title>Playlistr | Please login</title>
+      </Head>
       <LoginScreen />
     </>
   )

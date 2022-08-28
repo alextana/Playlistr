@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
+import Head from 'next/head'
 
 import LoadingPlaylist from 'src/components/ui/playlists/LoadingPlaylist'
 import PlaylistElement from 'src/components/ui/playlists/PlaylistElement'
@@ -60,70 +61,75 @@ const Playlist = () => {
   )
 
   return (
-    <div className='playlist-container'>
-      <>
-        {playlistLoading ? (
-          <div
-            className='skeleton mb-4'
-            style={{ height: '68px', width: '40%' }}
-          ></div>
-        ) : (
-          <div className='mb-4 flex justify-between items-center'>
-            <div className='playlist-info'>
-              <h3 className='playlist-title text-4xl font-extrabold tracking-tighter'>
-                {playlistData?.name}
-              </h3>
-              <h4 className='text-xl text-neutral-300'>
-                {playlistData?.tracks?.total} tracks
-              </h4>
-            </div>
+    <>
+      <Head>
+        <title>Playlistr | {playlistData?.name}</title>
+      </Head>
+      <div className='playlist-container'>
+        <>
+          {playlistLoading ? (
             <div
-              onClick={handleReshuffle}
-              className='reshuffle hidden lg:block px-4 py-1 rounded-full bg-neutral-900/50 mt-auto border border-white cursor-pointer hover:bg-green-900'
-            >
-              Reshuffle
-            </div>
-          </div>
-        )}
-
-        <div className='playlists-container grid grid-cols-1 lg:grid-cols-2 gap-3'>
-          {playlistLoading && <LoadingPlaylist />}
-          {playlistData && (
-            <div>
-              <h4 className='text-xl text-gray-400 font-extralight mb-2'>
-                Current tracks
-              </h4>
-              <PlaylistElement playlist={playlistData} />
+              className='skeleton mb-4'
+              style={{ height: '68px', width: '40%' }}
+            ></div>
+          ) : (
+            <div className='mb-4 flex justify-between items-center'>
+              <div className='playlist-info'>
+                <h3 className='playlist-title text-4xl font-extrabold tracking-tighter'>
+                  {playlistData?.name}
+                </h3>
+                <h4 className='text-xl text-neutral-300'>
+                  {playlistData?.tracks?.total} tracks
+                </h4>
+              </div>
+              <div
+                onClick={handleReshuffle}
+                className='reshuffle hidden lg:block px-4 py-1 rounded-full bg-neutral-900/50 mt-auto border border-white cursor-pointer hover:bg-green-900'
+              >
+                Reshuffle
+              </div>
             </div>
           )}
 
-          {(recommendedLoading || recommendedFetching) && <LoadingPlaylist />}
-
-          {recommendedData && (
-            <div>
-              <div className='title flex gap-3 justify-between'>
+          <div className='playlists-container grid grid-cols-1 lg:grid-cols-2 gap-3'>
+            {playlistLoading && <LoadingPlaylist />}
+            {playlistData && (
+              <div>
                 <h4 className='text-xl text-gray-400 font-extralight mb-2'>
-                  Recommended tracks
+                  Current tracks
                 </h4>
-                {/*
+                <PlaylistElement playlist={playlistData} />
+              </div>
+            )}
+
+            {(recommendedLoading || recommendedFetching) && <LoadingPlaylist />}
+
+            {recommendedData && (
+              <div>
+                <div className='title flex gap-3 justify-between'>
+                  <h4 className='text-xl text-gray-400 font-extralight mb-2'>
+                    Recommended tracks
+                  </h4>
+                  {/*
                   button for mobile
                 */}
-                <div
-                  onClick={handleReshuffle}
-                  className='reshuffle w-max mb-2 block lg:hidden px-4 py-1 rounded-full bg-neutral-900/50 mt-auto border border-white cursor-pointer hover:bg-green-900'
-                >
-                  Reshuffle
+                  <div
+                    onClick={handleReshuffle}
+                    className='reshuffle w-max mb-2 block lg:hidden px-4 py-1 rounded-full bg-neutral-900/50 mt-auto border border-white cursor-pointer hover:bg-green-900'
+                  >
+                    Reshuffle
+                  </div>
                 </div>
+                <RecommendedTracks
+                  playlist={id}
+                  recommendations={recommendedData}
+                />
               </div>
-              <RecommendedTracks
-                playlist={id}
-                recommendations={recommendedData}
-              />
-            </div>
-          )}
-        </div>
-      </>
-    </div>
+            )}
+          </div>
+        </>
+      </div>
+    </>
   )
 }
 

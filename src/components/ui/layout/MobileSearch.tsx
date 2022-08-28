@@ -1,4 +1,3 @@
-import { useAtom } from 'jotai'
 import React from 'react'
 import { HiChevronLeft } from 'react-icons/hi'
 import Search from '../search/Search'

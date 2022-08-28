@@ -28,7 +28,7 @@ export default function Modal({
         <>
           <animated.div
             style={modalStyles}
-            className='px-6 py-3 bg-white w-1/2 z-50 transform rounded-3xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
+            className='px-6 py-3 bg-white w-5/6 lg:w-1/2 z-50 transform rounded-3xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
           >
             <div
               onClick={handleClose}

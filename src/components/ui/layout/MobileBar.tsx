@@ -9,7 +9,7 @@ import { searchAtom } from 'src/store/store'
 
 export default function MobileBar() {
   const router = useRouter()
-  const [search, setSearch] = useAtom(searchAtom)
+  const [, setSearch] = useAtom(searchAtom)
 
   const [activePage, setActivePage] = useState<string>('')
 
@@ -24,6 +24,12 @@ export default function MobileBar() {
     setMobileSearchOpen(false)
     setSearch(false)
     setActivePage('')
+  }
+
+  function handleHome() {
+    router.push('/')
+    if (!mobileSearchOpen) return
+    setMobileSearchOpen(false)
   }
 
   useEffect(() => {
@@ -45,17 +51,16 @@ export default function MobileBar() {
   return (
     <div className='fixed bottom-0 left-0 z-50 w-full'>
       <div className='entries bg-black/90 border-t border-gray-800 w-screen pt-4 pb-8 backdrop-blur-lg grid grid-cols-3 text-center'>
-        <Link href='/'>
-          <a
-            role='link'
-            className={`${
-              activePage === 'home' ? 'text-green-500 pointer-events-none' : ''
-            } h-full flex flex-wrap items-center ${activePage} hover:text-green-500 cursor-pointer justify-center w-full border-r border-white/30`}
-          >
-            <HiHome className='h-5 w-5 md:h-7 md:w-7' />
-            <h2 className='text-xs w-full'>Home</h2>
-          </a>
-        </Link>
+        <div
+          onClick={handleHome}
+          role='link'
+          className={`${
+            activePage === 'home' ? 'text-green-500 pointer-events-none' : ''
+          } h-full flex flex-wrap items-center ${activePage} hover:text-green-500 cursor-pointer justify-center w-full border-r border-white/30`}
+        >
+          <HiHome className='h-5 w-5 md:h-7 md:w-7' />
+          <h2 className='text-xs w-full'>Home</h2>
+        </div>
         <div
           onClick={handleSearch}
           className={`${

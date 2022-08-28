@@ -5,6 +5,7 @@ import type { AppType } from 'next/dist/shared/lib/utils'
 import superjson from 'superjson'
 import { SessionProvider } from 'next-auth/react'
 import { ToastContainer } from 'react-toastify'
+import Head from 'next/head'
 
 import '../styles/globals.css'
 import Layout from '../components/ui/layout/Layout'
@@ -24,6 +25,9 @@ const MyApp: AppType = ({
 }) => {
   return (
     <SessionProvider session={session}>
+      <Head>
+        <link rel='shortcut icon' href='/images/favicon.ico' />
+      </Head>
       <QueryClientProvider client={queryClient}>
         <Layout>
           <Component {...pageProps} />

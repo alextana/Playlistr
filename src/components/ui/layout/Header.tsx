@@ -1,5 +1,5 @@
-import { useSession, signIn, signOut } from 'next-auth/react'
-import React, { useEffect } from 'react'
+import { useSession, signOut } from 'next-auth/react'
+import React from 'react'
 import { HiLogout } from 'react-icons/hi'
 import Link from 'next/link'
 

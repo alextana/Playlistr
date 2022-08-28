@@ -95,7 +95,7 @@ body {
   background: rgb(24, 131, 56) !important;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1360px) {
   .container {
     max-width: 90%;
   }
