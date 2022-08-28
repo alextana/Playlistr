@@ -15,10 +15,6 @@ export default function Playlist() {
     return res.json()
   })
 
-  function loadingComplete(e) {
-    console.log(e)
-  }
-
   useEffect(() => {
     setShow(true)
   }, [data, show])
@@ -39,7 +35,6 @@ export default function Playlist() {
                     <Image
                       width={250}
                       priority={true}
-                      onLoadingComplete={loadingComplete}
                       height={250}
                       src={playlist.images[0]?.url || ''}
                       className='rounded-xl w-full mb-4'
