@@ -1,11 +1,15 @@
 import { useSession, signOut } from 'next-auth/react'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { HiLogout } from 'react-icons/hi'
 import Link from 'next/link'
 import Image from 'next/future/image'
 
 export default function Header() {
   const { data: session } = useSession()
+
+  useEffect(() => {
+    console.log(session)
+  }, [session])
 
   return (
     <header>
@@ -35,16 +39,14 @@ export default function Header() {
 
         {session && (
           <div className='header-user-info flex gap-3 items-center'>
-            {session?.user?.image && (
-              <Image
-                width={20}
-                height={20}
-                priority={true}
-                className='w-8 h-8 rounded-full'
-                src={session.user.image}
-                alt={session.user.name || ''}
-              />
-            )}
+            <Image
+              width={20}
+              height={20}
+              priority={true}
+              className='w-8 h-8 rounded-full'
+              src={session.user.image || ''}
+              alt={session.user.name || ''}
+            />
             <span className='hidden lg:block'>
               Hello, {session?.user?.name}
             </span>
