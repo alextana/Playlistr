@@ -8,9 +8,6 @@ import Footer from './Footer'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession()
-  useEffect(() => {
-    console.log(session, status)
-  }, [session, status])
   if (status !== 'loading' && !session) {
     return (
       <>
