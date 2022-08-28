@@ -164,7 +164,7 @@ export default function SearchResults() {
                       width={40}
                       height={40}
                       className='w-8 h-8'
-                      src={track.album.images[0]?.url}
+                      src={track.album.images[0]?.url || ''}
                       alt={track.album.name}
                     />
                   </div>
