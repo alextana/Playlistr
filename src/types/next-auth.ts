@@ -12,6 +12,7 @@ declare module 'next-auth' {
       accessToken: string
       id: string
       image: string
+      name: string
       exp: number
       iat: number
       jti: string
