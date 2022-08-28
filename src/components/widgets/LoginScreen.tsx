@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { signIn } from 'next-auth/react'
 import { useAtom } from 'jotai'
 import { attributionAtom } from 'src/store/store'
+import Head from 'next/head'
 
 export default function LoginScreen() {
   const [random, setRandom] = useState<number>(1)
