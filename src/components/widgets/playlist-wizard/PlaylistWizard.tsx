@@ -99,6 +99,8 @@ export default function PlaylistWizard() {
       const user_id: string | undefined = session?.user?.id
       const seeds: any = selectedPurpose?.seeds
 
+      console.log(session)
+
       let seedString: string | null = null
       let seedGenres: string | null = null
 

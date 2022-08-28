@@ -9,7 +9,14 @@ declare module 'next-auth' {
       id: string
     }
     user: {
+      accessToken: string
       id: string
+      image: string
+      exp: number
+      iat: number
+      jti: string
+      picture: string
+      sub: string
     }
   }
 }
