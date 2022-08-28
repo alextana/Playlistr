@@ -1,15 +1,11 @@
 import { useSession, signOut } from 'next-auth/react'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { HiLogout } from 'react-icons/hi'
 import Link from 'next/link'
 import Image from 'next/future/image'
 
 export default function Header() {
   const { data: session } = useSession()
-
-  useEffect(() => {
-    console.log(session)
-  }, [session])
 
   return (
     <header>
