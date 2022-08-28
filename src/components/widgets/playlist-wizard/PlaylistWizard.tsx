@@ -96,7 +96,7 @@ export default function PlaylistWizard() {
 
       const playlist_name = `playlist_name=${playlistName}`
       const params = new URLSearchParams(playlist_name)
-      const user_id: string | undefined = session?.token?.id
+      const user_id: string | undefined = session?.user?.id
       const seeds: any = selectedPurpose?.seeds
 
       let seedString: string | null = null
