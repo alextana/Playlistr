@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { trackAtom } from 'src/store/store'
 import { useAtom } from 'jotai'
+import Image from 'next/future/image'
 
 export default function RecommendedTracks({
   recommendations,
@@ -15,7 +16,7 @@ export default function RecommendedTracks({
   const [recommendedTracks] = useAutoAnimate<any>()
   const [, setTrack] = useAtom(trackAtom)
   const queryClient = useQueryClient()
-  /* eslint-disable @next/next/no-img-element */
+
   const addTrack = useMutation(
     async (track: any) => {
       const res = await fetch(
@@ -59,7 +60,9 @@ export default function RecommendedTracks({
             key={item.uri}
           >
             <p>{index + 1}</p>
-            <img
+            <Image
+              width={40}
+              height={40}
               src={item.album.images[0].url}
               className='w-10'
               alt={item.name}

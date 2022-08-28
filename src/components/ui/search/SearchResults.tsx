@@ -11,6 +11,7 @@ import Modal from '../modal/Modal'
 import Dropdown from '../forms/Dropdown'
 import { DropdownEntry } from 'src/types/ui'
 import { toast } from 'react-toastify'
+import Image from 'next/future/image'
 
 export default function SearchResults() {
   const [search] = useAtom(searchAtom)
@@ -146,7 +147,6 @@ export default function SearchResults() {
   )
 
   return (
-    /* eslint-disable @next/next/no-img-element */
     <>
       {search && debouncedSearchTerms && (
         <div className='results h-5/6 overflow-y-scroll mt-8'>
@@ -160,7 +160,9 @@ export default function SearchResults() {
                   className={`track px-4 py-3 hover:bg-green-900 flex gap-3 items-center`}
                 >
                   <div className='track-album-image'>
-                    <img
+                    <Image
+                      width={40}
+                      height={40}
                       className='w-8 h-8'
                       src={track.album.images[0]?.url}
                       alt={track.album.name}

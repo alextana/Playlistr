@@ -6,7 +6,13 @@ const nextConfig = {
   },
   experimental: {
     images: {
-      allowFutureImage: true
+      allowFutureImage: true,
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: '**.scdn.co',
+        },
+      ],
     }
   },
 }

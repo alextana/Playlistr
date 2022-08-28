@@ -2,12 +2,12 @@ import { useSession, signOut } from 'next-auth/react'
 import React from 'react'
 import { HiLogout } from 'react-icons/hi'
 import Link from 'next/link'
+import Image from 'next/future/image'
 
 export default function Header() {
   const { data: session } = useSession()
 
   return (
-    /* eslint-disable @next/next/no-img-element */
     <header>
       <div className='header-container mx-auto py-4 container flex justify-between items-center'>
         <Link href='/' className='logo text-3xl tracking-tight font-extrabold'>
@@ -36,7 +36,10 @@ export default function Header() {
         {session && (
           <div className='header-user-info flex gap-3 items-center'>
             {session?.user?.image && (
-              <img
+              <Image
+                width={20}
+                height={20}
+                priority={true}
                 className='w-8 h-8 rounded-full'
                 src={session.user.image}
                 alt={session.user.name || ''}

@@ -41,7 +41,6 @@ export default function RightSidebar() {
   }, [router, data])
 
   return (
-    /* eslint-disable @next/next/no-img-element */
     <aside
       ref={aside}
       className={`w-80 transition-all ${

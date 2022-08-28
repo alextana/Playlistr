@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { trackAtom } from 'src/store/store'
 import { useAtom } from 'jotai'
+import Image from 'next/future/image'
 
 export default function PlaylistElement({ playlist }: { playlist?: any }) {
   const queryClient = useQueryClient()
@@ -43,7 +44,6 @@ export default function PlaylistElement({ playlist }: { playlist?: any }) {
     return () => clearTimeout(timer)
   }, [track, container, playlist])
 
-  /* eslint-disable @next/next/no-img-element */
   return (
     <div
       className='playlist-element-container bg-neutral-900/40'
@@ -60,7 +60,9 @@ export default function PlaylistElement({ playlist }: { playlist?: any }) {
             key={index}
           >
             <p>{index + 1}</p>
-            <img
+            <Image
+              width={40}
+              height={40}
               src={item.track.album.images[0].url}
               className='w-10'
               alt={item.track.name}
