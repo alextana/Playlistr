@@ -71,7 +71,7 @@ export default function RecommendedTracks({
               <h4>{item.name}</h4>
               <h5 className='text-neutral-300 text-sm'>
                 {item.artists.map((artist: any, index: number) => (
-                  <div key={index}>
+                  <span key={index}>
                     {index === 0 ? (
                       <span>
                         {artist.name}
@@ -88,7 +88,7 @@ export default function RecommendedTracks({
                           )}
                       </span>
                     )}
-                  </div>
+                  </span>
                 ))}
               </h5>
             </div>

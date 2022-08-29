@@ -94,7 +94,7 @@ export default function LoginScreen() {
           className={`bg-${random} fixed z-10 top-0 left-0 w-screen h-screen`}
           style={{ zIndex: '-1' }}
         >
-          <div className='overlay-login absolute backdrop-blur-sm top-0 w-full h-full gradient-bg'></div>
+          <div className='overlay-login absolute top-0 w-full h-full gradient-bg'></div>
         </div>
       </div>
     </>

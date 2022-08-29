@@ -6,6 +6,7 @@ import superjson from 'superjson'
 import { SessionProvider } from 'next-auth/react'
 import { ToastContainer } from 'react-toastify'
 import Head from 'next/head'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import '../styles/globals.css'
 import Layout from '../components/ui/layout/Layout'
@@ -38,6 +39,7 @@ const MyApp: AppType = ({
           position='bottom-right'
           pauseOnHover
         />
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </SessionProvider>
   )

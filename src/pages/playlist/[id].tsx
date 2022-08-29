@@ -1,10 +1,15 @@
 import { useRouter } from 'next/router'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import {
+  useInfiniteQuery,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query'
 import Head from 'next/head'
 
 import LoadingPlaylist from 'src/components/ui/playlists/LoadingPlaylist'
 import PlaylistElement from 'src/components/ui/playlists/PlaylistElement'
 import RecommendedTracks from 'src/components/ui/playlists/RecommendedTracks'
+import { useEffect } from 'react'
 
 const Playlist = () => {
   const router = useRouter()
@@ -19,6 +24,16 @@ const Playlist = () => {
       return res.json()
     }
   )
+
+  const {
+    isLoading: playlistItemsLoading,
+    data: playlistItemsData,
+    fetchNextPage,
+  } = useInfiniteQuery(['getPlaylistItems', id], async ({ pageParam = 0 }) => {
+    const res = await fetch(`/api/playlist-items/?id=${id}&offset=${pageParam}`)
+
+    return res.json()
+  })
 
   const handleReshuffle = () => {
     queryClient.invalidateQueries(['getRecommended'])
@@ -38,11 +53,13 @@ const Playlist = () => {
       for (let x = 1; x <= 5; x++) {
         const randomIndex = Math.ceil(Math.random() * 5)
 
-        if (!playlistData.tracks.items[randomIndex]) {
+        if (!playlistItemsData?.pages[0].items[randomIndex]) {
           continue
         }
 
-        tracksToSend.push(playlistData.tracks.items[randomIndex].track.id)
+        tracksToSend.push(
+          playlistItemsData?.pages[0].items[randomIndex].track.id
+        )
       }
 
       if (!tracksToSend.length) {
@@ -56,7 +73,7 @@ const Playlist = () => {
       return res.json()
     },
     {
-      enabled: !!playlistData,
+      enabled: !!playlistItemsData,
     }
   )
 
@@ -92,13 +109,16 @@ const Playlist = () => {
           )}
 
           <div className='playlists-container grid grid-cols-1 lg:grid-cols-2 gap-3'>
-            {playlistLoading && <LoadingPlaylist />}
-            {playlistData && (
+            {playlistItemsLoading && <LoadingPlaylist />}
+            {playlistItemsData && (
               <div>
                 <h4 className='text-xl text-gray-400 font-extralight mb-2'>
                   Current tracks
                 </h4>
-                <PlaylistElement playlist={playlistData} />
+                <PlaylistElement
+                  fetchNextPage={fetchNextPage}
+                  playlist={playlistItemsData}
+                />
               </div>
             )}
 

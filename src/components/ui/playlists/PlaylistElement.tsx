@@ -5,13 +5,19 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { trackAtom } from 'src/store/store'
 import { useAtom } from 'jotai'
-import Image from 'next/future/image'
 
-export default function PlaylistElement({ playlist }: { playlist?: any }) {
+export default function PlaylistElement({
+  playlist,
+  fetchNextPage,
+}: {
+  playlist?: any
+  fetchNextPage: Function
+}) {
   const queryClient = useQueryClient()
 
   const [track] = useAtom(trackAtom)
   const [toHighlight, setToHighlight] = useState<any>(null)
+  const [currentPage, setCurrentPage] = useState<number>(0)
   const container = useRef<HTMLDivElement>(null)
 
   const deleteTrack = useMutation(
@@ -27,6 +33,19 @@ export default function PlaylistElement({ playlist }: { playlist?: any }) {
       },
     }
   )
+
+  function handleScrolling() {
+    if (!container.current || !playlist) {
+      return
+    }
+
+    if (container.current.scrollTop > container.current.scrollHeight - 1000) {
+      if (playlist.pages[currentPage]?.items?.length === 100) {
+        fetchNextPage({ pageParam: 100 * (currentPage + 1) })
+        setCurrentPage(currentPage + 1)
+      }
+    }
+  }
 
   useEffect(() => {
     if (!track || !container.current) {
@@ -44,59 +63,64 @@ export default function PlaylistElement({ playlist }: { playlist?: any }) {
     return () => clearTimeout(timer)
   }, [track, container, playlist])
 
+  /* eslint-disable @next/next/no-img-element */
   return (
     <div
+      onScroll={handleScrolling}
       className='playlist-element-container bg-neutral-900/40'
       ref={container}
     >
       <ul>
-        {playlist?.tracks?.items?.map((item: any, index: number) => (
-          <li
-            className={`p-4 ${
-              toHighlight?.id === item?.track?.id
-                ? `highlight ${item?.track?.id}`
-                : ''
-            } transition-all bg-neutral-900/60 flex items-center gap-3 hover:bg-green-900`}
-            key={index}
-          >
-            <p>{index + 1}</p>
-            <Image
-              width={40}
-              height={40}
-              src={item.track.album.images[0].url}
-              className='w-10'
-              alt={item.track.name}
-            />
-            <div className='track-name-artist'>
-              <h4>{item.track.name}</h4>
-              <h5 className='text-neutral-300 text-sm'>
-                {item.track.artists.map((artist: any, index: number) => (
-                  <div key={index}>
-                    {index === 0 ? (
-                      <span>
-                        {artist.name}
-                        {item.track.artists.length > 1 && (
-                          <span className='text-neutral-400'>{' / '}</span>
+        {playlist.pages.map((group: any, i: number) => (
+          <React.Fragment key={i}>
+            {group.items?.map((item: any, index: number) => (
+              <li
+                className={`p-4 ${
+                  toHighlight?.id === item?.track?.id
+                    ? `highlight ${item?.track?.id}`
+                    : ''
+                } transition-all bg-neutral-900/60 flex items-center gap-3 hover:bg-green-900`}
+                key={index}
+              >
+                {/* set correct index depending on page */}
+                {i + 1 >= 2 ? <p>{index + 1 + 100}</p> : <p>{index + 1}</p>}
+                <img
+                  src={item.track.album.images[0].url}
+                  className='w-10'
+                  alt={item.track.name}
+                />
+                <div className='track-name-artist'>
+                  <h4>{item.track.name}</h4>
+                  <h5 className='text-neutral-300 text-sm'>
+                    {item.track.artists.map((artist: any, index: number) => (
+                      <span key={index}>
+                        {index === 0 ? (
+                          <span>
+                            {artist.name}
+                            {item.track.artists.length > 1 && (
+                              <span className='text-neutral-400'>{' / '}</span>
+                            )}
+                          </span>
+                        ) : (
+                          <span className='text-neutral-400'>
+                            {artist.name}
+                            {item.track.artists.length > 2 &&
+                              index !== item.track.artists.length - 1 && (
+                                <span>{' / '}</span>
+                              )}
+                          </span>
                         )}
                       </span>
-                    ) : (
-                      <span className='text-neutral-400'>
-                        {artist.name}
-                        {item.track.artists.length > 2 &&
-                          index !== item.track.artists.length - 1 && (
-                            <span>{' / '}</span>
-                          )}
-                      </span>
-                    )}
-                  </div>
-                ))}
-              </h5>
-            </div>
-            <RiDeleteBin5Line
-              onClick={() => deleteTrack.mutate(item.track.uri)}
-              className='ml-auto text-gray-400 hover:text-red-600 cursor-pointer'
-            />
-          </li>
+                    ))}
+                  </h5>
+                </div>
+                <RiDeleteBin5Line
+                  onClick={() => deleteTrack.mutate(item.track.uri)}
+                  className='ml-auto text-gray-400 hover:text-red-600 cursor-pointer'
+                />
+              </li>
+            ))}
+          </React.Fragment>
         ))}
       </ul>
     </div>

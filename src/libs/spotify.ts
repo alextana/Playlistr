@@ -40,6 +40,21 @@ export const getPlaylist = async (refresh_token: string, id: any) => {
     headers: {
       Authorization: `Bearer ${access_token}`,
     },
+    method: 'GET',
+  })
+}
+
+export const getPlaylistItems = async (
+  refresh_token: string,
+  id: any,
+  offset: any
+) => {
+  const { access_token } = await getToken(refresh_token)
+  return fetch(`${PLAYLIST_ENDPOINT}/${id}/tracks?limit=100&offset=${offset}`, {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+    method: 'GET',
   })
 }
 
