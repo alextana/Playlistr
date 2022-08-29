@@ -45,7 +45,7 @@ export default function RightSidebar() {
       ref={aside}
       className={`w-80 transition-all ${
         search ? 'xl:w-96' : 'xl:w-72'
-      } p-4 sticky top-5 rounded-3xl bg-neutral-900/80 h-screen overflow-y-hidden pb-8`}
+      } p-4 sticky top-5 rounded-3xl bg-neutral-800/80 h-screen overflow-y-hidden pb-8`}
     >
       <div className='links text-md font-semibold'>
         <Link href='/create-playlist'>

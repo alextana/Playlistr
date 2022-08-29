@@ -8,7 +8,7 @@ export default function PlaylistSkeleton() {
         .map(() => (
           <div
             key={Math.random()}
-            className='rounded-2xl skeleton bg-neutral-900/80 hover:bg-neutral-900/80 transform hover:-translate-y-1 transition-all p-4 w-full'
+            className='rounded-2xl skeleton bg-neutral-800/80 hover:bg-neutral-800/80 transform hover:-translate-y-1 transition-all p-4 w-full'
             style={{ width: '100%', height: '368px' }}
           >
             {''}
