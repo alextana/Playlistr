@@ -28,18 +28,20 @@ export default function RecommendedTracks({
       onSuccess: (_, variables) => {
         queryClient.invalidateQueries(['getPlaylist'])
         // remove the added track from recommended
-        queryClient.setQueryData(['getRecommended'], {
-          seeds: recommendations.seeds,
-          tracks: recommendations.tracks.filter(
-            (f: any) => f.uri !== variables.uri
-          ),
-        })
         setTrack(variables)
         // if you got rid of all the recommendations
         // then refetch
         if (recommendations.tracks.length === 1) {
           queryClient.invalidateQueries(['getRecommended'])
         }
+      },
+      onMutate: (variables) => {
+        queryClient.setQueryData(['getRecommended'], {
+          seeds: recommendations.seeds,
+          tracks: recommendations.tracks.filter(
+            (f: any) => f.uri !== variables.uri
+          ),
+        })
       },
     }
   )
