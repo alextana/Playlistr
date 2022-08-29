@@ -7,9 +7,11 @@ import { trackAtom } from 'src/store/store'
 import { useAtom } from 'jotai'
 
 export default function PlaylistElement({
+  playlistId,
   playlist,
   fetchNextPage,
 }: {
+  playlistId?: string | string[] | undefined
   playlist?: any
   fetchNextPage: Function
 }) {
@@ -23,13 +25,13 @@ export default function PlaylistElement({
   const deleteTrack = useMutation(
     async (trackToRemove: string) => {
       return await fetch(
-        `/api/track/remove?playlistId=${playlist.id}&trackUri=${trackToRemove}`
+        `/api/track/remove?playlistId=${playlistId}&trackUri=${trackToRemove}`
       )
     },
     {
       onSuccess: () => {
         toast('Track deleted successfully')
-        queryClient.invalidateQueries(['getPlaylist'])
+        queryClient.invalidateQueries(['getPlaylistItems'])
       },
     }
   )
@@ -67,7 +69,7 @@ export default function PlaylistElement({
   return (
     <div
       onScroll={handleScrolling}
-      className='playlist-element-container bg-neutral-900/40'
+      className='playlist-element-container bg-neutral-800/40'
       ref={container}
     >
       <ul>
@@ -79,7 +81,7 @@ export default function PlaylistElement({
                   toHighlight?.id === item?.track?.id
                     ? `highlight ${item?.track?.id}`
                     : ''
-                } transition-all bg-neutral-900/60 flex items-center gap-3 hover:bg-green-900`}
+                } transition-all bg-neutral-800/60 flex items-center gap-3 hover:bg-green-900`}
                 key={index}
               >
                 {/* set correct index depending on page */}
