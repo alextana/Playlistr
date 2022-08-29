@@ -9,7 +9,6 @@ import Head from 'next/head'
 import LoadingPlaylist from 'src/components/ui/playlists/LoadingPlaylist'
 import PlaylistElement from 'src/components/ui/playlists/PlaylistElement'
 import RecommendedTracks from 'src/components/ui/playlists/RecommendedTracks'
-import { useEffect } from 'react'
 
 const Playlist = () => {
   const router = useRouter()
@@ -101,7 +100,7 @@ const Playlist = () => {
               </div>
               <div
                 onClick={handleReshuffle}
-                className='reshuffle hidden lg:block px-4 py-1 rounded-full bg-neutral-900/50 mt-auto border border-white cursor-pointer hover:bg-green-900'
+                className='reshuffle hidden lg:block px-4 py-1 rounded-full bg-neutral-800/50 mt-auto border border-white cursor-pointer hover:bg-green-900'
               >
                 Reshuffle
               </div>
@@ -116,6 +115,7 @@ const Playlist = () => {
                   Current tracks
                 </h4>
                 <PlaylistElement
+                  playlistId={id}
                   fetchNextPage={fetchNextPage}
                   playlist={playlistItemsData}
                 />
@@ -135,7 +135,7 @@ const Playlist = () => {
                 */}
                   <div
                     onClick={handleReshuffle}
-                    className='reshuffle w-max mb-2 block lg:hidden px-4 py-1 rounded-full bg-neutral-900/50 mt-auto border border-white cursor-pointer hover:bg-green-900'
+                    className='reshuffle w-max mb-2 block lg:hidden px-4 py-1 rounded-full bg-neutral-800/50 mt-auto border border-white cursor-pointer hover:bg-green-900'
                   >
                     Reshuffle
                   </div>

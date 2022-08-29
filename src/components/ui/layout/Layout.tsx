@@ -23,7 +23,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Header />
-      <main className='flex container mx-auto gap-3 pb-32 xl:pb-0'>
+      <main className='flex container mx-auto gap-6 pb-32 xl:pb-0'>
         <div className='flex-grow'>{children}</div>
         <div className='hidden lg:block'>
           <RightSidebar />
@@ -32,6 +32,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <MobileBar />
         </div>
       </main>
+      <Footer />
     </>
   )
 }
