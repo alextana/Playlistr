@@ -3,6 +3,8 @@ import { signIn } from 'next-auth/react'
 import { useAtom } from 'jotai'
 import { attributionAtom } from 'src/store/store'
 import Head from 'next/head'
+import Footer from '../ui/layout/Footer'
+import Header from '../ui/layout/Header'
 
 export default function LoginScreen() {
   const [random, setRandom] = useState<number>(1)
@@ -42,11 +44,9 @@ export default function LoginScreen() {
       <Head>
         <title>Welcome to playlistr</title>
       </Head>
-      <div
-        className='login-container w-full grid place-content-center'
-        style={{ height: '80vh' }}
-      >
-        <div className='spotify-login grid grid-cols-1 items-end lg:grid-cols-2 shadow-2xl'>
+      <div className='login-container w-screen h-screen grid place-content-center'>
+        <Header isFixed={true} />
+        <div className='z-10 spotify-login grid grid-cols-1 items-end lg:grid-cols-2 shadow-2xl'>
           <div className='left-side text-center bg-neutral-800/60 backdrop-blur-lg py-12 px-6'>
             <h1 className='text-8xl font-extrabold tracking-tighter mb-2'>
               Hello
@@ -76,13 +76,12 @@ export default function LoginScreen() {
               </button>
             </div>
           </div>
-          <div className='right-side py-12 px-6 bg-green-600/80 backdrop-blur-lg rounded-br-3xl lg:rounded-tr-3xl'>
-            <h3 className='text-7xl font-extrabold '>Easily</h3>
-
-            <h3 className='text-6xl font-extrabold tracking-tighter'>
+          <div className='right-side text-center lg:text-left py-6 lg:py-12 px-6 bg-green-600/80 backdrop-blur-lg rounded-br-3xl lg:rounded-tr-3xl'>
+            <h3 className='text-4xl lg:text-7xl font-extrabold'>Easily</h3>
+            <h3 className='text-3xl lg:text-6xl font-extrabold tracking-tighter'>
               Create &
             </h3>
-            <h3 className='text-6xl font-extrabold tracking-tighter mb-2'>
+            <h3 className='text-3xl lg:text-6xl font-extrabold tracking-tighter mb-2'>
               Manage
             </h3>
             <h3 className='font-extrabold tracking-tighter text-2xl'>
@@ -90,12 +89,16 @@ export default function LoginScreen() {
             </h3>
           </div>
         </div>
+        <Footer isFixed={true} />
+      </div>
+      <div
+        className={`bg-${random} fixed z-10 top-0 left-0 w-screen h-screen`}
+        style={{ zIndex: '0' }}
+      >
         <div
-          className={`bg-${random} fixed z-10 top-0 left-0 w-screen h-screen`}
-          style={{ zIndex: '-1' }}
-        >
-          <div className='overlay-login absolute top-0 w-full h-full gradient-bg'></div>
-        </div>
+          className='overlay-login fixed top-0 left-0 w-screen h-screen gradient-bg'
+          style={{ zIndex: 1 }}
+        ></div>
       </div>
     </>
   )

@@ -3,7 +3,7 @@ import React from 'react'
 import { useAtom } from 'jotai'
 import { attributionAtom } from 'src/store/store'
 
-export default function Footer() {
+export default function Footer({ isFixed }: { isFixed?: boolean }) {
   const [attribution] = useAtom(attributionAtom)
 
   const socials: Social[] = [
@@ -23,7 +23,14 @@ export default function Footer() {
   }
 
   return (
-    <div className='w-max mx-auto text-center my-8'>
+    <div
+      className={`w-max mx-auto text-center my-8 ${
+        isFixed
+          ? 'fixed bottom-0 w-full left-1/2 transform -translate-x-1/2'
+          : ''
+      }`}
+      style={{ zIndex: '3', textShadow: '0px 0px 10px rgba(0,0,0,.8)' }}
+    >
       playlistr for Spotify, built with the{' '}
       <Link passHref href='https://create.t3.gg/'>
         <a className='hover:text-green-500' rel='noreferrer' target='_blank'>

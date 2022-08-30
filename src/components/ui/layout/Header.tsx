@@ -4,12 +4,15 @@ import { HiLogout } from 'react-icons/hi'
 import Link from 'next/link'
 import Image from 'next/future/image'
 
-export default function Header() {
+export default function Header({ isFixed }: { isFixed?: boolean }) {
   const { data: session } = useSession()
 
   return (
-    <header>
-      <div className='header-container mx-auto py-4 container flex justify-between items-center'>
+    <header
+      className={`${isFixed ? 'fixed top-0 left-0 w-full' : ''}`}
+      style={{ zIndex: 3 }}
+    >
+      <div className='header-container mx-auto py-4 z-50 container flex justify-between items-center'>
         <Link href='/' className='logo text-3xl tracking-tight font-extrabold'>
           <div className='flex gap-1 items-center  cursor-pointer logo-group hover:text-green-500'>
             <div className='logo-icon transform rotate-x-90'>

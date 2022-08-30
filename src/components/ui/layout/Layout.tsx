@@ -11,11 +11,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   if (status !== 'loading' && !session) {
     return (
       <>
-        <Header />
-        <main className='flex container mx-auto gap-3'>
-          <LoginScreen />
-        </main>
-        <Footer />
+        <LoginScreen />
       </>
     )
   }
