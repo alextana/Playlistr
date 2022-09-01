@@ -1,4 +1,4 @@
-import { addToPlaylist } from '../../libs/spotify'
+import { deletePlaylist } from '../../libs/spotify'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getToken } from 'next-auth/jwt'
 
@@ -9,17 +9,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (!token) {
     return res.status(401).json({ error: 'No token found' })
   }
-
   const accessToken = token.accessToken as string
 
-  const response = await addToPlaylist(
-    accessToken,
-    query.playlistId,
-    query.trackUri
-  )
-  const added = await response.json()
+  const response = await deletePlaylist(accessToken, query.playlistId)
 
-  return res.status(200).json(added)
+  return res.status(200).json(response)
 }
 
 export default handler

@@ -69,7 +69,20 @@ export const addToPlaylist = async (
       Authorization: `Bearer ${access_token}`,
     },
     method: 'POST',
-    // body: JSON.stringify(toAdd),
+  })
+}
+
+export const deletePlaylist = async (
+  refresh_token: string,
+  playlistId?: any
+) => {
+  const { access_token } = await getToken(refresh_token)
+
+  return fetch(`https://api.spotify.com/v1/playlists/${playlistId}/followers`, {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+    method: 'DELETE',
   })
 }
 
