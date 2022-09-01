@@ -5,10 +5,20 @@ import { useSession } from 'next-auth/react'
 import LoginScreen from 'src/components/widgets/LoginScreen'
 import MobileBar from './MobileBar'
 import Footer from './Footer'
+import LoadingScreen from 'src/components/widgets/LoadingScreen'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession()
-  if (status !== 'loading' && !session) {
+
+  if (status === 'loading') {
+    return (
+      <>
+        <LoadingScreen />
+      </>
+    )
+  }
+
+  if (!session) {
     return (
       <>
         <LoginScreen />
