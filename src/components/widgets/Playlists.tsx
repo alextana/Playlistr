@@ -32,15 +32,17 @@ export default function Playlist() {
               {data?.items?.map((playlist: any) => (
                 <Link href={`/playlist/${playlist.id}`} key={playlist.id}>
                   <a className='rounded-2xl bg-neutral-800/70 hover:bg-neutral-800/80 transform hover:-translate-y-1 transition-all p-4 w-full'>
-                    <Image
-                      width={250}
-                      priority={true}
-                      height={250}
-                      src={playlist.images[0]?.url || ''}
-                      className='rounded-xl w-full mb-4 shadow-2xl'
-                      alt={playlist.name}
-                      style={{ height: 'auto' }}
-                    />
+                    {playlist?.images[0]?.url && (
+                      <Image
+                        width={250}
+                        priority={true}
+                        height={250}
+                        src={playlist?.images[0]?.url || ''}
+                        className='rounded-xl w-full mb-4 shadow-2xl'
+                        alt={playlist.name}
+                        style={{ height: 'auto' }}
+                      />
+                    )}
                     <h3 className='text-md font-extrabold'>{playlist.name}</h3>
                     <h5 className='text-neutral-200'>
                       {playlist.tracks.total} tracks

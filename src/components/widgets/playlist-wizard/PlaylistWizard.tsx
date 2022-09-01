@@ -119,13 +119,13 @@ export default function PlaylistWizard() {
             .toString()
       }
 
-      if (selectedGenres.length) {
+      if (selectedGenres?.length) {
         seedGenres = '&seed_genres=' + selectedGenres.join(',')
       }
 
-      return await fetch(
-        `/api/create-playlist?${params}` + seedString + seedGenres
-      )
+      const string = [seedString, seedGenres].join('&')
+
+      return await fetch(`/api/create-playlist?${params}` + string)
     },
     {
       onSuccess: async (data: any) => {
