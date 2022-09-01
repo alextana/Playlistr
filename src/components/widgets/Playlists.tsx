@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import PlaylistSkeleton from './PlaylistSkeleton'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import Image from 'next/future/image'
+import NoImage from '../ui/playlists/NoImage'
 
 export default function Playlist() {
   const [parent] = useAutoAnimate<HTMLDivElement>()
@@ -32,7 +33,7 @@ export default function Playlist() {
               {data?.items?.map((playlist: any) => (
                 <Link href={`/playlist/${playlist.id}`} key={playlist.id}>
                   <a className='rounded-2xl bg-neutral-800/70 hover:bg-neutral-800/80 transform hover:-translate-y-1 transition-all p-4 w-full'>
-                    {playlist?.images[0]?.url && (
+                    {playlist?.images[0]?.url ? (
                       <Image
                         width={250}
                         priority={true}
@@ -42,6 +43,8 @@ export default function Playlist() {
                         alt={playlist.name}
                         style={{ height: 'auto' }}
                       />
+                    ) : (
+                      <NoImage />
                     )}
                     <h3 className='text-md font-extrabold'>{playlist.name}</h3>
                     <h5 className='text-neutral-200'>
