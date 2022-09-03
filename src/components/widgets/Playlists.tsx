@@ -123,9 +123,9 @@ export default function Playlist() {
                         <h3 className='text-md font-extrabold'>
                           {playlist.name}
                         </h3>
-                        <h5 className='text-neutral-200'>
+                        <h4 className='text-neutral-200'>
                           {playlist.tracks.total} tracks
-                        </h5>
+                        </h4>
                       </div>
                       <div
                         className='delete-playlist cursor-pointer hover:text-green-500'
