@@ -15,6 +15,12 @@ import {
   colors,
   animals,
 } from 'unique-names-generator'
+import Workout from 'src/components/ui/icons/Workout'
+import Travel from 'src/components/ui/icons/Travel'
+import Chilling from 'src/components/ui/icons/Chilling'
+import Party from 'src/components/ui/icons/Party'
+import Gaming from 'src/components/ui/icons/Gaming'
+import Anything from 'src/components/ui/icons/Anything'
 export default function PlaylistWizard() {
   const [playlistName, setplaylistName] = useState<string>('')
   const [selectedPurpose, setSelectedPurpose] = useState<Purpose | null>(null)
@@ -178,7 +184,36 @@ export default function PlaylistWizard() {
                     } playlist-purpose-item cursor-pointer  rounded-md p-4 w-36 text-center text-sm uppercase font-semibold`}
                   >
                     <div className='purpose-icon text-4xl mb-2'>
-                      {purpose.icon}
+                      {purpose.name === 'Working out' && (
+                        <Workout
+                          isSelected={selectedPurpose?.id === purpose.id}
+                        />
+                      )}
+                      {purpose.name === 'Traveling' && (
+                        <Travel
+                          isSelected={selectedPurpose?.id === purpose.id}
+                        />
+                      )}
+                      {purpose.name === 'Chilling' && (
+                        <Chilling
+                          isSelected={selectedPurpose?.id === purpose.id}
+                        />
+                      )}
+                      {purpose.name === 'Partying' && (
+                        <Party
+                          isSelected={selectedPurpose?.id === purpose.id}
+                        />
+                      )}
+                      {purpose.name === 'Gaming' && (
+                        <Gaming
+                          isSelected={selectedPurpose?.id === purpose.id}
+                        />
+                      )}
+                      {purpose.name === 'Anything' && (
+                        <Anything
+                          isSelected={selectedPurpose?.id === purpose.id}
+                        />
+                      )}
                     </div>
                     <div className='purpose-name'>{purpose.name}</div>
                   </div>
@@ -247,7 +282,7 @@ export default function PlaylistWizard() {
                         <>
                           <button
                             onClick={() => setPickGenres(true)}
-                            className='mx-auto block create-playlist bg-neutral-600 hover:bg-neutral-800 cursor-pointer uppercase text-sm font-bold rounded-full justify-center px-9 py-2 w-max text-center'
+                            className='mx-auto block create-playlist bg-neutral-600 hover:bg-green-800 cursor-pointer uppercase text-sm font-bold rounded-full justify-center px-9 py-2 w-max text-center'
                           >
                             select up to 3 Genres
                           </button>

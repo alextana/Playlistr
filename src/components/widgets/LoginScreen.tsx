@@ -47,8 +47,8 @@ export default function LoginScreen() {
       <div className='login-container w-screen h-screen grid place-content-center'>
         <Header isFixed={true} />
         <div className='z-10 spotify-login grid grid-cols-1 items-end lg:grid-cols-2 shadow-2xl'>
-          <div className='left-side text-center bg-neutral-800/60 backdrop-blur-lg py-12 px-6'>
-            <h1 className='text-8xl font-extrabold tracking-tighter mb-2'>
+          <div className='left-side text-center bg-neutral-800/60 backdrop-blur-lg py-8 xl:py-12 px-6'>
+            <h1 className='text-6xl xl:text-8xl font-extrabold tracking-tighter mb-2'>
               Hello
             </h1>
             <h3 className='text-sm font-bold'>

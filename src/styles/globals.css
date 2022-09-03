@@ -100,3 +100,10 @@ body {
     max-width: 90%;
   }
 }
+
+@media (max-width: 1023px) {
+  .container {
+    max-width: 90%;
+    gap: 0;
+  }
+}
