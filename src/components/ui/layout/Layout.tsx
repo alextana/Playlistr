@@ -41,6 +41,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           property='og:description'
           content='Playlistr is a tool to create and manage your Spotify playlists easily.'
         />
+        <meta
+          name='description'
+          content='Playlistr is a tool to create and manage your Spotify playlists easily.'
+        />
+        <meta
+          name='keywords'
+          content='Spotify, Playlist, Manager, T3 Stack, React, Next'
+        />
+        <meta name='author' content='Alex Tana' />
       </Head>
       <Header />
       <main className='flex container mx-auto gap-6 pb-32 xl:pb-0'>
