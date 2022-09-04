@@ -124,7 +124,7 @@ const Playlist = () => {
 
             {(recommendedLoading || recommendedFetching) && <LoadingPlaylist />}
 
-            {recommendedData && (
+            {recommendedData && !recommendedFetching && !recommendedLoading && (
               <div>
                 <div className='title flex gap-3 justify-between'>
                   <h4 className='text-xl text-gray-400 font-extralight mb-2'>

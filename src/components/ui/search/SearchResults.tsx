@@ -119,8 +119,12 @@ export default function SearchResults() {
     },
     {
       onSuccess: (_, variables) => {
+        queryClient.invalidateQueries(['getPlaylists'])
         queryClient.invalidateQueries(['getPlaylist'])
-        // remove the added track from recommended
+
+        if (selectedPlaylist && router.asPath.indexOf(selectedPlaylist) > -1) {
+          queryClient.invalidateQueries(['getPlaylistItems'])
+        }
 
         let updatedData = resultsData
         // remove the added track from results
