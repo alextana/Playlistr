@@ -106,9 +106,9 @@ export default function Playlist() {
                     {playlist?.images[0]?.url &&
                     !erroringImages.find((f) => f === i) ? (
                       <Image
-                        width={250}
+                        width={100}
                         priority={true}
-                        height={250}
+                        height={100}
                         src={playlist?.images[0]?.url || ''}
                         onError={() => handleErroringImages(i)}
                         className='rounded-xl w-full mb-4 shadow-2xl'

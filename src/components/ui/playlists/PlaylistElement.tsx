@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { trackAtom } from 'src/store/store'
 import { useAtom } from 'jotai'
+import Image from 'next/future/image'
 
 export default function PlaylistElement({
   playlistId,
@@ -45,7 +46,7 @@ export default function PlaylistElement({
 
     if (container.current.scrollTop > container.current.scrollHeight - 2000) {
       if (playlist.pages[currentPage]?.items?.length === 100) {
-        fetchNextPage()
+        fetchNextPage({ pageParam: 100 * (currentPage + 1) })
         setCurrentPage(currentPage + 1)
       }
     }
@@ -100,9 +101,12 @@ export default function PlaylistElement({
                       ) : (
                         <p>{index + 1}</p>
                       )}
-                      <img
+                      <Image
+                        width={20}
+                        height={20}
                         src={item.track.album.images[0].url}
                         className='w-10'
+                        sizes='(min-width: 1px) 20px'
                         alt={item.track.name}
                       />
                       <div className='track-name-artist'>

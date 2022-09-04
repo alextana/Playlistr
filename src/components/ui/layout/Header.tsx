@@ -23,11 +23,12 @@ export default function Header({ isFixed }: { isFixed?: boolean }) {
           <div className='header-user-info flex gap-3 items-center'>
             <figure className='w-8 h-8 relative shadow-sm rounded-full overflow-hidden'>
               <Image
-                width={50}
+                width={30}
                 className='absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2'
                 priority={true}
                 src={session.user?.image || ''}
                 alt={session.user?.name || ''}
+                sizes='(min-width: 1px) 20px'
                 style={{ height: 'auto' }}
               />
             </figure>

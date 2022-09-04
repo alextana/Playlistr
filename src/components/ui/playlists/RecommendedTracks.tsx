@@ -79,10 +79,11 @@ export default function RecommendedTracks({
           >
             <p>{index + 1}</p>
             <Image
-              width={40}
-              height={40}
+              width={20}
+              height={20}
               src={item.album.images[0].url}
               className='w-10'
+              sizes='(min-width: 1px) 20px'
               alt={item.name}
             />
             <div className='track-name-artist'>

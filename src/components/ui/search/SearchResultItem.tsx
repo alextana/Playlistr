@@ -16,9 +16,10 @@ export default function SearchResultItem({
     >
       <div className='track-album-image'>
         <Image
-          width={40}
-          height={40}
+          width={20}
+          height={20}
           className='w-8 h-8'
+          sizes='(min-width: 1px) 20px'
           src={track.album.images[0]?.url || ''}
           alt={track.album.name}
         />
