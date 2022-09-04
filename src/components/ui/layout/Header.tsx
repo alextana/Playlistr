@@ -21,14 +21,16 @@ export default function Header({ isFixed }: { isFixed?: boolean }) {
 
         {session && (
           <div className='header-user-info flex gap-3 items-center'>
-            <Image
-              width={20}
-              height={20}
-              priority={true}
-              className='w-8 h-8 rounded-full'
-              src={session.user?.image || ''}
-              alt={session.user?.name || ''}
-            />
+            <figure className='w-8 h-8 relative shadow-sm rounded-full overflow-hidden'>
+              <Image
+                width={50}
+                className='absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2'
+                priority={true}
+                src={session.user?.image || ''}
+                alt={session.user?.name || ''}
+                style={{ height: 'auto' }}
+              />
+            </figure>
             <span className='hidden lg:block'>
               Hello, {session?.user?.name}
             </span>
