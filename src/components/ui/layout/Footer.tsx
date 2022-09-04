@@ -32,7 +32,7 @@ export default function Footer({ isFixed }: { isFixed?: boolean }) {
     <div
       className={`w-max mx-auto text-center my-1 xl:my-8 ${
         isFixed
-          ? 'fixed bottom-0 w-full text-xs xl:text-sm left-1/2 transform -translate-x-1/2'
+          ? 'fixed bottom-0 w-full text-xs left-1/2 transform -translate-x-1/2'
           : ''
       }`}
       style={{ zIndex: '3', textShadow: '0px 0px 10px rgba(0,0,0,.8)' }}
@@ -44,7 +44,7 @@ export default function Footer({ isFixed }: { isFixed?: boolean }) {
         </a>
       </Link>
       <h3
-        className='text-xs xl:text-sm mt-0 xl:mt-2'
+        className='text-xs mt-0 xl:mt-2'
         dangerouslySetInnerHTML={{ __html: attribution }}
       ></h3>
       <div className='social-links mt-2 flex gap-3 w-max mx-auto'>

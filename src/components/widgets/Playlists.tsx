@@ -101,9 +101,9 @@ export default function Playlist() {
                     key={playlist.id}
                     role='link'
                     onClick={(e) => handleRoute(e, playlist)}
-                    className='rounded-2xl cursor-pointer bg-gray-800/40 hover:bg-green-800/80 transform hover:-translate-y-1 transition-all p-4 w-full'
+                    className='rounded-3xl cursor-pointer bg-gray-800/40 hover:bg-green-800/80 border border-gray-700/30 shadow-xl hover:border-green-700/50 transform hover:-translate-y-1 transition-all p-4 w-full'
                   >
-                    {playlist?.images[0]?.url ||
+                    {playlist?.images[0]?.url &&
                     !erroringImages.find((f) => f === i) ? (
                       <Image
                         width={250}

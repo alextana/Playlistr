@@ -45,7 +45,7 @@ export default function RightSidebar() {
       ref={aside}
       className={`w-80 transition-all ${
         search ? 'xl:w-96' : 'xl:w-72'
-      } p-4 sticky top-5 rounded-3xl bg-gray-800/80 h-screen overflow-y-hidden pb-8`}
+      } p-4 sticky top-5 rounded-3xl bg-gray-800/30 border border-gray-700/30 h-screen overflow-y-hidden pb-8`}
     >
       <div className='links text-md font-semibold'>
         <Link href='/create-playlist'>
@@ -74,7 +74,7 @@ export default function RightSidebar() {
       {router.pathname.indexOf('/playlist/') > -1 && !search && (
         <>
           <span
-            className='block w-full bg-white/30 my-2'
+            className='block w-full bg-white/10 my-4'
             style={{ height: '1px' }}
           />
           <ul>
@@ -83,8 +83,8 @@ export default function RightSidebar() {
                 className={`${
                   router.asPath.indexOf(playlist.id) > -1
                     ? 'text-green-500'
-                    : ''
-                } mb-2 hover:text-green-500 text-neutral-400`}
+                    : 'text-neutral-400'
+                } mb-3 font-semibold hover:text-green-500`}
                 key={playlist.id}
               >
                 <Link href={`/playlist/${playlist.id}`}>{playlist.name}</Link>
