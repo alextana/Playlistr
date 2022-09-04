@@ -78,14 +78,21 @@ export default function RecommendedTracks({
             key={item.uri}
           >
             <p>{index + 1}</p>
-            <Image
-              width={20}
-              height={20}
-              src={item.album.images[0].url}
-              className='w-10'
-              sizes='(min-width: 1px) 20px'
-              alt={item.name}
-            />
+            {item.album.images[0].url ? (
+              <Image
+                width={20}
+                height={20}
+                src={item.album.images[0].url}
+                className='w-10'
+                sizes='(min-width: 1px) 20px'
+                alt={item.name}
+              />
+            ) : (
+              <div
+                className='bg-gray-900'
+                style={{ width: '40px', height: '40px' }}
+              ></div>
+            )}
             <div className='track-name-artist'>
               <h4>{item.name}</h4>
               <h5 className='text-neutral-300 text-sm'>

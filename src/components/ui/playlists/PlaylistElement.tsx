@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { trackAtom } from 'src/store/store'
 import { useAtom } from 'jotai'
 import Image from 'next/future/image'
+import NoImage from './NoImage'
 
 export default function PlaylistElement({
   playlistId,
@@ -101,14 +102,21 @@ export default function PlaylistElement({
                       ) : (
                         <p>{index + 1}</p>
                       )}
-                      <Image
-                        width={20}
-                        height={20}
-                        src={item.track.album.images[0].url}
-                        className='w-10'
-                        sizes='(min-width: 1px) 20px'
-                        alt={item.track.name}
-                      />
+                      {item?.track?.album?.images[0]?.url ? (
+                        <Image
+                          width={20}
+                          height={20}
+                          src={item?.track?.album?.images[0]?.url || ''}
+                          className='w-10'
+                          sizes='(min-width: 1px) 20px'
+                          alt={item.track.name}
+                        />
+                      ) : (
+                        <div
+                          className='bg-gray-900'
+                          style={{ width: '40px', height: '40px' }}
+                        ></div>
+                      )}
                       <div className='track-name-artist'>
                         <h4>{item.track.name}</h4>
                         <h5 className='text-neutral-300 text-sm'>
