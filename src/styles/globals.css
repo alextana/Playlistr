@@ -3,7 +3,14 @@
 @tailwind utilities;
 
 body {
-  background: rgb(20, 20, 21);
+  background: conic-gradient(
+    from 90deg at 25% -10%,
+    #080f1c,
+    #111b22,
+    #070807,
+    #afeeee,
+    #142751
+  );
   color: rgb(240, 240, 240);
 }
 

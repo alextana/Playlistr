@@ -45,12 +45,15 @@ export default function MobileBar() {
       case '/create-playlist':
         setActivePage('playlist')
         break
+      default:
+        setActivePage('')
+        break
     }
   }, [router, activePage, mobileSearchOpen])
 
   return (
     <div className='fixed bottom-0 left-0 z-50 w-full'>
-      <div className='entries bg-black/90 border-t border-gray-800 w-screen pt-4 pb-8 backdrop-blur-lg grid grid-cols-3 text-center'>
+      <div className='entries bg-gray-900/90 border-t border-gray-800 w-screen pt-4 pb-8 backdrop-blur-lg grid grid-cols-3 text-center'>
         <div
           onClick={handleHome}
           role='link'
@@ -76,7 +79,7 @@ export default function MobileBar() {
               activePage === 'playlist'
                 ? 'text-green-500 pointer-events-none'
                 : ''
-            } h-full flex flex-wrap items-center hover:text-green-500 cursor-pointer justify-center w-full border-r border-white/30`}
+            } h-full flex flex-wrap items-center hover:text-green-500 cursor-pointer justify-center w-full`}
           >
             <HiPlusCircle className='h-5 w-5 md:h-7 md:w-7' />
             <h2 className='text-xs w-full'>New Playlist</h2>

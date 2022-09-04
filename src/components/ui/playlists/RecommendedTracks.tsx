@@ -54,12 +54,12 @@ export default function RecommendedTracks({
   return (
     <div
       ref={recommendedTracks}
-      className='playlist-element-container bg-neutral-800/40'
+      className='playlist-element-container bg-gray-800/40'
     >
       <ul>
         {recommendations?.tracks?.map((item: any, index: number) => (
           <li
-            className='bg-neutral-800/60 p-4 flex items-center gap-3 hover:bg-green-900'
+            className='bg-gray-800/40 p-4 flex items-center gap-3 hover:bg-green-900'
             key={item.uri}
           >
             <p>{index + 1}</p>

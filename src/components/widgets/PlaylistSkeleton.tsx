@@ -4,7 +4,7 @@ export default function PlaylistSkeleton() {
   return (
     <>
       <div
-        className='skeleton bg-neutral-800/80 mb-2'
+        className='skeleton bg-gray-800/80 mb-2'
         style={{ width: '300px', height: '40px' }}
       ></div>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3'>
@@ -13,7 +13,7 @@ export default function PlaylistSkeleton() {
           .map(() => (
             <div
               key={Math.random()}
-              className='rounded-2xl skeleton bg-neutral-800/80 hover:bg-neutral-800/80 transform hover:-translate-y-1 transition-all p-4 w-full'
+              className='rounded-2xl skeleton bg-gray-800/80 hover:bg-gray-800/80 transform hover:-translate-y-1 transition-all p-4 w-full'
               style={{ width: '100%', height: '368px' }}
             >
               {''}

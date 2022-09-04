@@ -101,7 +101,7 @@ export default function Playlist() {
                     key={playlist.id}
                     role='link'
                     onClick={(e) => handleRoute(e, playlist)}
-                    className='rounded-2xl cursor-pointer bg-neutral-800/70 hover:bg-green-800/80 transform hover:-translate-y-1 transition-all p-4 w-full'
+                    className='rounded-2xl cursor-pointer bg-gray-800/40 hover:bg-green-800/80 transform hover:-translate-y-1 transition-all p-4 w-full'
                   >
                     {playlist?.images[0]?.url ||
                     !erroringImages.find((f) => f === i) ? (
@@ -120,12 +120,12 @@ export default function Playlist() {
                     )}
                     <div className='info flex gap-1 justify-between items-center'>
                       <div className='name-count'>
-                        <h3 className='text-md font-extrabold'>
+                        <h2 className='text-md font-extrabold'>
                           {playlist.name}
-                        </h3>
-                        <h4 className='text-neutral-200'>
+                        </h2>
+                        <h3 className='text-neutral-200'>
                           {playlist.tracks.total} tracks
-                        </h4>
+                        </h3>
                       </div>
                       <div
                         className='delete-playlist cursor-pointer hover:text-green-500'

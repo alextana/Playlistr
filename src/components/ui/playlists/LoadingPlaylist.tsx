@@ -7,7 +7,7 @@ export default function LoadingPlaylist() {
         className='skeleton mb-2'
         style={{ width: '300px', height: '26px' }}
       ></div>
-      <div className='w-full playlist-skeleton bg-neutral-800/80 playlist-element-container'>
+      <div className='w-full playlist-skeleton bg-gray-800/80 playlist-element-container'>
         {Array(20)
           .fill('')
           .map(() => (

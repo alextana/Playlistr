@@ -69,7 +69,7 @@ export default function PlaylistElement({
   return (
     <div
       onScroll={handleScrolling}
-      className='playlist-element-container bg-neutral-800/40'
+      className='playlist-element-container bg-gray-800/40'
       ref={container}
     >
       <ul>
@@ -81,7 +81,7 @@ export default function PlaylistElement({
                   toHighlight?.id === item?.track?.id
                     ? `highlight ${item?.track?.id}`
                     : ''
-                } transition-all bg-neutral-800/60 flex items-center gap-3 hover:bg-green-900`}
+                } transition-all bg-gray-800/40 flex items-center gap-3 hover:bg-green-900`}
                 key={index}
               >
                 {/* set correct index depending on page */}

@@ -100,7 +100,7 @@ const Playlist = () => {
               </div>
               <div
                 onClick={handleReshuffle}
-                className='reshuffle hidden lg:block px-4 py-1 rounded-full bg-neutral-800/50 mt-auto border border-white cursor-pointer hover:bg-green-900'
+                className='reshuffle hidden lg:block px-4 py-1 rounded-full bg-gray-800/50 mt-auto border border-white cursor-pointer hover:bg-green-900'
               >
                 Reshuffle
               </div>
@@ -135,7 +135,7 @@ const Playlist = () => {
                 */}
                   <div
                     onClick={handleReshuffle}
-                    className='reshuffle w-max mb-2 block lg:hidden px-4 py-1 rounded-full bg-neutral-800/50 mt-auto border border-white cursor-pointer hover:bg-green-900'
+                    className='reshuffle w-max mb-2 block lg:hidden px-4 py-1 rounded-full bg-gray-800/50 mt-auto border border-white cursor-pointer hover:bg-green-900'
                   >
                     Reshuffle
                   </div>

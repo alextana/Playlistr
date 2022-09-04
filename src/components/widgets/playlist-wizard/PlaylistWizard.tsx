@@ -155,13 +155,13 @@ export default function PlaylistWizard() {
       </Head>
       <div ref={parent}>
         {show && (
-          <div className='transition-all bg-neutral-800/80 p-6 rounded-3xl mt-2'>
+          <div className='transition-all bg-gray-800/80 p-6 rounded-3xl mt-2'>
             <div className='playlist-name'>
               <h4 className='mb-2 tracking-tighter text-xs font-extrabold uppercase'>
                 Playlist name
               </h4>
               <input
-                className='bg-neutral-600/80 w-full md:w-80 text-xl rounded-2xl px-4 py-2 focus:outline-1 outline-green-500'
+                className='bg-gray-600/80 w-full md:w-80 text-xl rounded-2xl px-4 py-2 focus:outline-1 outline-green-500'
                 type='text'
                 value={playlistName}
                 autoFocus
@@ -180,7 +180,7 @@ export default function PlaylistWizard() {
                     className={`${
                       selectedPurpose?.id === purpose.id
                         ? 'bg-green-600/80 hover:bg-green-800/80'
-                        : 'bg-neutral-500/20 hover:bg-neutral-600/60'
+                        : 'bg-gray-500/20 hover:bg-gray-600/60'
                     } playlist-purpose-item cursor-pointer  rounded-md p-4 w-36 text-center text-sm uppercase font-semibold`}
                   >
                     <div className='purpose-icon text-4xl mb-2'>
@@ -235,7 +235,7 @@ export default function PlaylistWizard() {
                           className={` ${
                             trackNumber === number
                               ? 'bg-green-600/80 hover:bg-green-800/80'
-                              : 'bg-neutral-500/20 hover:bg-neutral-600/80'
+                              : 'bg-gray-500/20 hover:bg-gray-600/80'
                           }  cursor-pointer w-20 rounded-md px-4 py-2 text-sm font-extrabold`}
                         >
                           {number}
@@ -268,7 +268,7 @@ export default function PlaylistWizard() {
                       selectedGenres.filter((f: string) => f === genre).length
                         ? 'selected'
                         : 'border-transparent'
-                    } border playlist-purpose-item cursor-pointer bg-neutral-600/30 hover:bg-green-600 border-white rounded-md p-2 text-center text-xs uppercase font-semibold`}
+                    } border playlist-purpose-item cursor-pointer bg-gray-600/30 hover:bg-green-600 border-white rounded-md p-2 text-center text-xs uppercase font-semibold`}
                               >
                                 {genre}
                               </div>
@@ -282,7 +282,7 @@ export default function PlaylistWizard() {
                         <>
                           <button
                             onClick={() => setPickGenres(true)}
-                            className='mx-auto block create-playlist bg-neutral-600 hover:bg-green-800 cursor-pointer uppercase text-sm font-bold rounded-full justify-center px-9 py-2 w-max text-center'
+                            className='mx-auto block create-playlist bg-gray-600 hover:bg-green-800 cursor-pointer uppercase text-sm font-bold rounded-full justify-center px-9 py-2 w-max text-center'
                           >
                             select up to 3 Genres
                           </button>
@@ -296,7 +296,7 @@ export default function PlaylistWizard() {
                         className={`
                     ${
                       playlistState === 'loading'
-                        ? 'bg-neutral-600 hover:bg-neutral-600 pointer-events-none'
+                        ? 'bg-gray-600 hover:bg-gray-600 pointer-events-none'
                         : 'bg-green-600'
                     }
                     ${
