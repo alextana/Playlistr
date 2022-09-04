@@ -10,10 +10,12 @@ export default function PlaylistElement({
   playlistId,
   playlist,
   fetchNextPage,
+  hasNextPage,
 }: {
   playlistId?: string | string[] | undefined
   playlist?: any
   fetchNextPage: Function
+  hasNextPage: boolean | undefined
 }) {
   const queryClient = useQueryClient()
 
@@ -37,13 +39,13 @@ export default function PlaylistElement({
   )
 
   function handleScrolling() {
-    if (!container.current || !playlist) {
+    if (!container.current || !playlist || !hasNextPage) {
       return
     }
 
     if (container.current.scrollTop > container.current.scrollHeight - 2000) {
       if (playlist.pages[currentPage]?.items?.length === 100) {
-        fetchNextPage({ pageParam: 100 * (currentPage + 1) })
+        fetchNextPage()
         setCurrentPage(currentPage + 1)
       }
     }
@@ -77,53 +79,69 @@ export default function PlaylistElement({
           {playlist.pages.map((group: any, i: number) => (
             <React.Fragment key={i}>
               {group.items?.map((item: any, index: number) => (
-                <li
-                  className={`p-4 ${
-                    toHighlight?.id === item?.track?.id
-                      ? `highlight ${item?.track?.id}`
-                      : ''
-                  } transition-all bg-gray-800/40 flex items-center gap-3 hover:bg-green-900`}
-                  key={index}
-                >
-                  {/* set correct index depending on page */}
-                  {i + 1 >= 2 ? <p>{index + 1 + 100}</p> : <p>{index + 1}</p>}
-                  <img
-                    src={item.track.album.images[0].url}
-                    className='w-10'
-                    alt={item.track.name}
-                  />
-                  <div className='track-name-artist'>
-                    <h4>{item.track.name}</h4>
-                    <h5 className='text-neutral-300 text-sm'>
-                      {item.track.artists.map((artist: any, index: number) => (
-                        <span key={index}>
-                          {index === 0 ? (
-                            <span>
-                              {artist.name}
-                              {item.track.artists.length > 1 && (
-                                <span className='text-neutral-400'>
-                                  {' / '}
-                                </span>
-                              )}
-                            </span>
-                          ) : (
-                            <span className='text-neutral-400'>
-                              {artist.name}
-                              {item.track.artists.length > 2 &&
-                                index !== item.track.artists.length - 1 && (
-                                  <span>{' / '}</span>
+                <React.Fragment key={index}>
+                  {item?.type === 'loading' ? (
+                    <li
+                      className='element skeleton w-full block mb-2'
+                      style={{ height: '76px' }}
+                    ></li>
+                  ) : (
+                    <li
+                      className={`p-4 ${
+                        toHighlight?.id === item?.track?.id
+                          ? `highlight ${item?.track?.id}`
+                          : ''
+                      } transition-all bg-gray-800/40 flex items-center gap-3 hover:bg-green-900`}
+                      key={index}
+                    >
+                      {/* set correct index depending on page */}
+                      {i + 1 >= 2 ? (
+                        <p>{index + 1 * (i * 100) + 1}</p>
+                      ) : (
+                        <p>{index + 1}</p>
+                      )}
+                      <img
+                        src={item.track.album.images[0].url}
+                        className='w-10'
+                        alt={item.track.name}
+                      />
+                      <div className='track-name-artist'>
+                        <h4>{item.track.name}</h4>
+                        <h5 className='text-neutral-300 text-sm'>
+                          {item.track.artists.map(
+                            (artist: any, index: number) => (
+                              <span key={index}>
+                                {index === 0 ? (
+                                  <span>
+                                    {artist.name}
+                                    {item.track.artists.length > 1 && (
+                                      <span className='text-neutral-400'>
+                                        {' / '}
+                                      </span>
+                                    )}
+                                  </span>
+                                ) : (
+                                  <span className='text-neutral-400'>
+                                    {artist.name}
+                                    {item.track.artists.length > 2 &&
+                                      index !==
+                                        item.track.artists.length - 1 && (
+                                        <span>{' / '}</span>
+                                      )}
+                                  </span>
                                 )}
-                            </span>
+                              </span>
+                            )
                           )}
-                        </span>
-                      ))}
-                    </h5>
-                  </div>
-                  <RiDeleteBin5Line
-                    onClick={() => deleteTrack.mutate(item.track.uri)}
-                    className='ml-auto text-gray-400 hover:text-red-600 cursor-pointer'
-                  />
-                </li>
+                        </h5>
+                      </div>
+                      <RiDeleteBin5Line
+                        onClick={() => deleteTrack.mutate(item.track.uri)}
+                        className='ml-auto text-gray-400 hover:text-red-600 cursor-pointer'
+                      />
+                    </li>
+                  )}
+                </React.Fragment>
               ))}
             </React.Fragment>
           ))}

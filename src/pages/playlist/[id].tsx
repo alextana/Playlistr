@@ -5,7 +5,6 @@ import {
   useQueryClient,
 } from '@tanstack/react-query'
 import Head from 'next/head'
-
 import LoadingPlaylist from 'src/components/ui/playlists/LoadingPlaylist'
 import PlaylistElement from 'src/components/ui/playlists/PlaylistElement'
 import RecommendedTracks from 'src/components/ui/playlists/RecommendedTracks'
@@ -28,11 +27,25 @@ const Playlist = () => {
     isLoading: playlistItemsLoading,
     data: playlistItemsData,
     fetchNextPage,
-  } = useInfiniteQuery(['getPlaylistItems', id], async ({ pageParam = 0 }) => {
-    const res = await fetch(`/api/playlist-items/?id=${id}&offset=${pageParam}`)
+    hasNextPage,
+  } = useInfiniteQuery(
+    ['getPlaylistItems', id],
+    async ({ pageParam = 0 }) => {
+      const res = await fetch(
+        `/api/playlist-items/?id=${id}&offset=${pageParam}`
+      )
+      return res.json()
+    },
+    {
+      getNextPageParam: (lastPage, pages) => {
+        if (lastPage.total < pages.length * 100) {
+          return false
+        }
 
-    return res.json()
-  })
+        return lastPage?.limit * pages.length
+      },
+    }
+  )
 
   const handleReshuffle = () => {
     queryClient.invalidateQueries(['getRecommended'])
@@ -117,6 +130,7 @@ const Playlist = () => {
                 <PlaylistElement
                   playlistId={id}
                   fetchNextPage={fetchNextPage}
+                  hasNextPage={hasNextPage}
                   playlist={playlistItemsData}
                 />
               </div>

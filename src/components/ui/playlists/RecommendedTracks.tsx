@@ -1,10 +1,11 @@
 import React from 'react'
 import { RiAddCircleLine } from 'react-icons/ri'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQueryClient, QueryCache } from '@tanstack/react-query'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { trackAtom } from 'src/store/store'
 import { useAtom } from 'jotai'
 import Image from 'next/future/image'
+import { toast } from 'react-toastify'
 
 export default function RecommendedTracks({
   recommendations,
@@ -27,6 +28,7 @@ export default function RecommendedTracks({
     {
       onSuccess: (_, variables) => {
         queryClient.invalidateQueries(['getPlaylistItems'])
+        toast.success(`${variables.name} successfully added to the playlist`)
         queryClient.invalidateQueries(['getPlaylist'])
         // remove the added track from recommended
         setTrack(variables)
@@ -43,6 +45,19 @@ export default function RecommendedTracks({
             (f: any) => f.uri !== variables.uri
           ),
         })
+
+        let oldData: any = queryClient
+          .getQueryCache()
+          .find(['getPlaylistItems'], { exact: false })?.state?.data
+
+        oldData?.pages[oldData.pages.length - 1]?.items?.push({
+          type: 'loading',
+        })
+
+        queryClient.setQueryData(['getPlaylistItems'], oldData)
+      },
+      onError: (_, variables) => {
+        toast.error(`There was an issue adding ${variables.name}`)
       },
     }
   )

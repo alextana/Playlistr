@@ -35,7 +35,7 @@ const MyApp: AppType = ({
         </Layout>
         <ToastContainer
           theme='dark'
-          autoClose={5000}
+          autoClose={1500}
           position='bottom-right'
           pauseOnHover
         />
