@@ -5,16 +5,21 @@ import { attributionAtom } from 'src/store/store'
 import Head from 'next/head'
 import Footer from '../ui/layout/Footer'
 import Header from '../ui/layout/Header'
+import { useAutoAnimate } from '@formkit/auto-animate/react'
 
 export default function LoginScreen() {
   const [random, setRandom] = useState<number>(1)
   const [, setAttribution] = useAtom(attributionAtom)
+  const [parent] = useAutoAnimate<HTMLDivElement>()
+  const [show, setShow] = useState<boolean>(false)
 
   useEffect(() => {
-    setRandom(Math.floor(Math.random() * 3))
-  }, [])
+    setShow(true)
+  }, [show])
 
   useEffect(() => {
+    setRandom(Math.floor(Math.random() * 5))
+
     switch (random) {
       case 0:
         setAttribution(
@@ -33,21 +38,26 @@ export default function LoginScreen() {
         break
       case 3:
         setAttribution(
-          `Photo by <a href="https://unsplash.com/@lightrisephoto?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Devon Divine</a> on <a href="https://unsplash.com/s/photos/listen-music?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>`
+          `Photo by <a href="https://unsplash.com/@schluditsch?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Daniel Schludi</a> on <a href="https://unsplash.com/s/photos/listening-to-music?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>`
+        )
+        break
+      case 4:
+        setAttribution(
+          `Photo by <a href="https://unsplash.com/@introspectivedsgn?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Erik Mclean</a> on <a href="https://unsplash.com/s/photos/listening-to-music?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>`
         )
         break
     }
   }, [random, setAttribution])
 
   return (
-    <>
+    <div ref={parent}>
       <Head>
         <title>Welcome to playlistr</title>
       </Head>
       <div className='login-container w-screen h-screen grid place-content-center'>
         <Header isFixed={true} />
         <div className='z-10 spotify-login grid grid-cols-1 items-end lg:grid-cols-2 shadow-2xl'>
-          <div className='left-side text-center bg-gray-800/40 backdrop-blur-lg py-8 xl:py-12 px-6'>
+          <div className='left-side text-center bg-gray-800/60 backdrop-blur-lg py-8 xl:py-12 px-6'>
             <h1 className='text-6xl xl:text-8xl font-extrabold tracking-tighter mb-2'>
               Hello
             </h1>
@@ -91,15 +101,17 @@ export default function LoginScreen() {
         </div>
         <Footer isFixed={true} />
       </div>
-      <div
-        className={`bg-${random} fixed z-10 top-0 left-0 w-screen h-screen`}
-        style={{ zIndex: '0' }}
-      >
+      {show && (
         <div
-          className='overlay-login fixed top-0 left-0 w-screen h-screen gradient-bg'
-          style={{ zIndex: 1 }}
-        ></div>
-      </div>
-    </>
+          className={`bg-${random} fixed z-10 top-0 left-0 w-screen h-screen`}
+          style={{ zIndex: '0' }}
+        >
+          <div
+            className='overlay-login fixed top-0 left-0 w-screen h-screen gradient-bg'
+            style={{ zIndex: 1 }}
+          ></div>
+        </div>
+      )}
+    </div>
   )
 }

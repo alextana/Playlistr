@@ -46,6 +46,12 @@ body {
   background-position: center;
 }
 
+.bg-4 {
+  background-image: url('/4.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
 ::-webkit-scrollbar {
   width: 0.5em;
 }
