@@ -41,7 +41,7 @@ export default function PlaylistElement({
       return
     }
 
-    if (container.current.scrollTop > container.current.scrollHeight - 1000) {
+    if (container.current.scrollTop > container.current.scrollHeight - 2000) {
       if (playlist.pages[currentPage]?.items?.length === 100) {
         fetchNextPage({ pageParam: 100 * (currentPage + 1) })
         setCurrentPage(currentPage + 1)
