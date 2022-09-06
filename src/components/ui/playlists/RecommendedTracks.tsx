@@ -80,11 +80,11 @@ export default function RecommendedTracks({
             <p>{index + 1}</p>
             {item.album.images[0].url ? (
               <Image
-                width={20}
-                height={20}
+                width={40}
+                height={40}
                 src={item.album.images[0].url}
                 className='w-10'
-                sizes='(min-width: 1px) 20px'
+                sizes='(min-width: 1px) 40px'
                 alt={item.name}
               />
             ) : (
