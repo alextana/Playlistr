@@ -1,5 +1,4 @@
 import { createRouter } from './context'
-import { z } from 'zod'
 
 export const playlistRouter = createRouter().query('get-all-playlists', {
   async resolve({ ctx }) {

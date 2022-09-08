@@ -1,6 +1,5 @@
-import React from 'react'
 import { RiAddCircleLine } from 'react-icons/ri'
-import { useMutation, useQueryClient, QueryCache } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { trackAtom } from 'src/store/store'
 import { useAtom } from 'jotai'
@@ -21,7 +20,7 @@ export default function RecommendedTracks({
   const addTrack = useMutation(
     async (track: any) => {
       const res = await fetch(
-        `/api/addToPlaylist?playlistId=${playlist}&trackUri=${track.uri}`
+        `/api/add-to-playlist?playlistId=${playlist}&trackUri=${track.uri}`
       )
       return res.json()
     },
@@ -84,7 +83,7 @@ export default function RecommendedTracks({
                 height={40}
                 src={item.album.images[0].url}
                 className='w-10'
-                sizes='(min-width: 1px) 40px'
+                sizes='(min-width: 1px) 0px'
                 alt={item.name}
               />
             ) : (

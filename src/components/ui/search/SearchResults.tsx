@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDebounce } from 'src/hooks/useDebounce'
 import { useAtom } from 'jotai'
-import { truncate } from 'src/utils/truncate'
 import { trackAtom, searchAtom, searchTermsAtom } from 'src/store/store'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Track } from 'src/types/spotify'
@@ -141,7 +140,7 @@ export default function SearchResults() {
           queryClient.invalidateQueries(['searchSongs'])
         }
 
-        toast(`${variables.name} successfully added to the playlist`)
+        toast.success(`${variables.name} successfully added to the playlist`)
 
         if (isModalOpen) {
           handleCloseModalReset()
