@@ -1,11 +1,63 @@
-# Playlistr
-![image](https://user-images.githubusercontent.com/24207888/187053643-b498364d-c0ca-42d2-a78c-043d4ce31668.png)
+# Nuxt 3 Minimal Starter
 
-## Spotify playlist manager & creator
-It's super easy to create and manage your playlists with Playlistr, the app was built to make the process extremely simple - I grew frustrated when I had to quickly spin up a playlist for an event, so I decided to make it super easy!
+Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-The app is built in Next, using the T3 Stack
+## Setup
 
-![image](https://user-images.githubusercontent.com/24207888/187053686-4c8005d6-76e9-4f0a-82ac-b11637d907e5.png)
+Make sure to install the dependencies:
 
-![image](https://user-images.githubusercontent.com/24207888/187053696-4f4e6a65-4c72-4dfc-a0f1-207b738109a7.png)
+```bash
+# npm
+npm install
+
+# pnpm
+pnpm install
+
+# yarn
+yarn install
+```
+
+## Development Server
+
+Start the development server on `http://localhost:3000`:
+
+```bash
+# npm
+npm run dev
+
+# pnpm
+pnpm run dev
+
+# yarn
+yarn dev
+```
+
+## Production
+
+Build the application for production:
+
+```bash
+# npm
+npm run build
+
+# pnpm
+pnpm run build
+
+# yarn
+yarn build
+```
+
+Locally preview production build:
+
+```bash
+# npm
+npm run preview
+
+# pnpm
+pnpm run preview
+
+# yarn
+yarn preview
+```
+
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

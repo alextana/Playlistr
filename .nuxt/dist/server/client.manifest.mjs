@@ -1,0 +1,1 @@
+export { default } from "file:///Users/alextana/code/nuxt/playlistr-new/Playlistr/node_modules/@nuxt/vite-builder/dist/runtime/client.manifest.mjs"
